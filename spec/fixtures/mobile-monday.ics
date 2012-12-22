@@ -1,0 +1,76 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Meetup//RemoteApi//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-ORIGINAL-URL:http://www.meetup.com/Mobile-Monday-Detroit/events/ical/Mo
+ bile+Monday+Detroit/
+X-WR-CALNAME:Events - Mobile Monday Detroit
+BEGIN:VTIMEZONE
+TZID:America/New_York
+TZURL:http://tzurl.org/zoneinfo-outlook/America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:19700308T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:19701101T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20121222T185423Z
+DTSTART;TZID=America/New_York:20130114T173000
+DTEND;TZID=America/New_York:20130114T203000
+STATUS:CONFIRMED
+SUMMARY:MoMoDetroit - taking a break in January
+DESCRIPTION:Mobile Monday Detroit\nMonday\, January 14 at 5:30 PM\n\nMobi
+ le Monday Detroit will not be meeting in January 2013. We'll be taking a
+  month off during which time our organizing committee will be working on
+  p...\n\nDetails: http://www.meetup.com/Mobile-Monday-Detroit/events/939
+ 23552/
+CLASS:PUBLIC
+CREATED:20121203T215142Z
+GEO:42.33;-83.05
+URL:http://www.meetup.com/Mobile-Monday-Detroit/events/93923552/
+LAST-MODIFIED:20121203T215142Z
+UID:event_93923552@meetup.com
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20121222T185423Z
+DTSTART;TZID=America/New_York:20130211T173000
+DTEND;TZID=America/New_York:20130211T200000
+STATUS:CONFIRMED
+SUMMARY:To be announced
+DESCRIPTION:Mobile Monday Detroit\nMonday\, February 11 at 5:30 PM\n\nDet
+ ails: http://www.meetup.com/Mobile-Monday-Detroit/events/93923892/
+CLASS:PUBLIC
+CREATED:20121203T215431Z
+GEO:42.33;-83.05
+URL:http://www.meetup.com/Mobile-Monday-Detroit/events/93923892/
+LAST-MODIFIED:20121203T215431Z
+UID:event_93923892@meetup.com
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20121222T185423Z
+DTSTART;TZID=America/New_York:20130311T173000
+DTEND;TZID=America/New_York:20130311T200000
+STATUS:CONFIRMED
+SUMMARY:To be announced
+DESCRIPTION:Mobile Monday Detroit\nMonday\, March 11 at 5:30 PM\n\nDetail
+ s: http://www.meetup.com/Mobile-Monday-Detroit/events/93924042/
+CLASS:PUBLIC
+CREATED:20121203T215538Z
+GEO:42.33;-83.05
+URL:http://www.meetup.com/Mobile-Monday-Detroit/events/93924042/
+LAST-MODIFIED:20121203T215538Z
+UID:event_93924042@meetup.com
+END:VEVENT
+END:VCALENDAR
