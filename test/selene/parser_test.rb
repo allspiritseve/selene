@@ -4,6 +4,7 @@ require 'json'
 module Selene
   class ParserTest < TestCase
 
+    # Line breaks
     def test_lines_are_unfolded_before_splitting
       assert_equal Selene::Parser.split("This is a\r\n  test"), ["This is a test"]
     end
@@ -17,7 +18,6 @@ module Selene
     end
 
     def test_parse_meetup_calendar
-      skip "Need to finish writing builders first"
       actual = Selene::Parser.parse(fixture('meetup.ics'))
       expected = JSON.parse(fixture('meetup.json'))
       assert_equal actual, expected

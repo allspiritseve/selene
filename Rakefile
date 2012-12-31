@@ -10,10 +10,11 @@ task :meetup do
   require 'selene'
   require 'json'
   require 'pp'
+  require 'debugger'
 
   File.open('test/fixtures/meetup.json', 'wb') do |file|
     feed = Selene.parse(File.read('test/fixtures/meetup.ics'))
     pp feed
-    file.write(feed.to_json)
+    file.write(JSON.pretty_generate(feed))
   end
 end

@@ -1,1 +1,115 @@
-{"calendars":[{"version":"2.0","prodid":"-//Meetup//RemoteApi//EN","calscale":"GREGORIAN","method":"PUBLISH","x-original-url":"http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/","x-wr-calname":"Events - DetroitRuby"}]}
+{
+  "calendars": [
+    {
+      "version": "2.0",
+      "prodid": "-//Meetup//RemoteApi//EN",
+      "calscale": "GREGORIAN",
+      "method": "PUBLISH",
+      "x-original-url": "http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/",
+      "x-wr-calname": "Events - DetroitRuby",
+      "time_zones": [
+        {
+          "tzid": "America/New_York",
+          "tzurl": "http://tzurl.org/zoneinfo-outlook/America/New_York",
+          "x-lic-location": "America/New_York",
+          "daylight": [
+            {
+              "tzoffsetfrom": "-0500",
+              "tzoffsetto": "-0400",
+              "tzname": "EDT",
+              "dtstart": "19700308T020000",
+              "rrule": "FREQ=YEARLY;BYMONTH=3;BYDAY=2SU"
+            }
+          ]
+        }
+      ],
+      "events": [
+        {
+          "dtstamp": "20121231T093631Z",
+          "dtstart;tzid=america/new_york": "20130110T183000",
+          "dtend;tzid=america/new_york": "20130110T213000",
+          "status": "CONFIRMED",
+          "summary": "DetroitRuby: 2012 Plan + Lightning talks",
+          "description": "DetroitRuby\\nThursday\\, January 10 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/93346412/",
+          "class": "PUBLIC",
+          "created": "20120106T161509Z",
+          "geo": "42.33;-83.05",
+          "location": "Compuware Building (One Campus Martius\\, Detroit\\, MI 48226)",
+          "url": "http://www.meetup.com/DetroitRuby/events/93346412/",
+          "last-modified": "20120106T161509Z",
+          "uid": "event_qgkxkcyrcbnb@meetup.com"
+        },
+        {
+          "dtstamp": "20121231T093631Z",
+          "dtstart;tzid=america/new_york": "20130214T183000",
+          "dtend;tzid=america/new_york": "20130214T213000",
+          "status": "CONFIRMED",
+          "summary": "DetroitRuby: 2012 Plan + Lightning talks",
+          "description": "DetroitRuby\\nThursday\\, February 14 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrdbsb/",
+          "class": "PUBLIC",
+          "created": "20120106T161509Z",
+          "geo": "42.33;-83.05",
+          "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrdbsb/",
+          "last-modified": "20120106T161509Z",
+          "uid": "event_qgkxkcyrdbsb@meetup.com"
+        },
+        {
+          "dtstamp": "20121231T093631Z",
+          "dtstart;tzid=america/new_york": "20130314T183000",
+          "dtend;tzid=america/new_york": "20130314T213000",
+          "status": "CONFIRMED",
+          "summary": "DetroitRuby: 2012 Plan + Lightning talks",
+          "description": "DetroitRuby\\nThursday\\, March 14 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrfbsb/",
+          "class": "PUBLIC",
+          "created": "20120106T161509Z",
+          "geo": "42.33;-83.05",
+          "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrfbsb/",
+          "last-modified": "20120106T161509Z",
+          "uid": "event_qgkxkcyrfbsb@meetup.com"
+        },
+        {
+          "dtstamp": "20121231T093631Z",
+          "dtstart;tzid=america/new_york": "20130411T183000",
+          "dtend;tzid=america/new_york": "20130411T213000",
+          "status": "CONFIRMED",
+          "summary": "DetroitRuby: 2012 Plan + Lightning talks",
+          "description": "DetroitRuby\\nThursday\\, April 11 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrgbpb/",
+          "class": "PUBLIC",
+          "created": "20120106T161509Z",
+          "geo": "42.33;-83.05",
+          "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrgbpb/",
+          "last-modified": "20120106T161509Z",
+          "uid": "event_qgkxkcyrgbpb@meetup.com"
+        },
+        {
+          "dtstamp": "20121231T093631Z",
+          "dtstart;tzid=america/new_york": "20130509T183000",
+          "dtend;tzid=america/new_york": "20130509T213000",
+          "status": "CONFIRMED",
+          "summary": "DetroitRuby: 2012 Plan + Lightning talks",
+          "description": "DetroitRuby\\nThursday\\, May 9 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrhbmb/",
+          "class": "PUBLIC",
+          "created": "20120106T161509Z",
+          "geo": "42.33;-83.05",
+          "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrhbmb/",
+          "last-modified": "20120106T161509Z",
+          "uid": "event_qgkxkcyrhbmb@meetup.com"
+        },
+        {
+          "dtstamp": "20121231T093631Z",
+          "dtstart;tzid=america/new_york": "20130613T183000",
+          "dtend;tzid=america/new_york": "20130613T213000",
+          "status": "CONFIRMED",
+          "summary": "DetroitRuby: 2012 Plan + Lightning talks",
+          "description": "DetroitRuby\\nThursday\\, June 13 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrjbrb/",
+          "class": "PUBLIC",
+          "created": "20120106T161509Z",
+          "geo": "42.33;-83.05",
+          "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrjbrb/",
+          "last-modified": "20120106T161509Z",
+          "uid": "event_qgkxkcyrjbrb@meetup.com"
+        }
+      ]
+    }
+  ]
+}

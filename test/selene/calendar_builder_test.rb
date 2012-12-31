@@ -4,10 +4,9 @@ class Selene::CalendarBuilderTest < MiniTest::Unit::TestCase
 
   def setup
     @builder = Selene::CalendarBuilder.new
-    @equivalent_properties = %w(prodid version calscale method)
   end
 
-  @equivalent_properties.each do |property|
+  %w(prodid version calscale method).each do |property|
     define_method "test_parsing_#{property}_property" do
       'some value'.tap do |value|
         @builder.parse(property.upcase, value)
