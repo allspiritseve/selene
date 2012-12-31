@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Selene::VERSION
   gem.authors       = ["Cory Kaufman-Schofield"]
   gem.email         = ["cory@corykaufman.com"]
-  gem.description   = %q{Selene is a Ruby iCalendar parser}
-  gem.summary       = %q{Selene is a Ruby iCalendar parser}
+  gem.description   = %q{Selene is an iCalendar parser for Ruby}
+  gem.summary       = %q{Selene is an iCalendar parser for Ruby}
   gem.homepage      = "https://github.com/allspiritseve/selene"
 
   gem.files         = `git ls-files`.split($/)
@@ -17,6 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'debugger'
   gem.add_development_dependency 'minitest-colorize'
+  gem.add_development_dependency 'rake'
 end

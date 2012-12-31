@@ -1,3 +1,10 @@
 require 'selene/parser'
-require 'selene/stack'
 require 'selene/version'
+
+module Selene
+
+  def self.parse(string)
+    Parser.parse(string)
+  end
+
+end
