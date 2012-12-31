@@ -2,6 +2,7 @@ require 'bundler/setup'
 require 'debugger'
 require 'minitest/autorun'
 require 'minitest/colorize'
+require 'minitest/mock'
 require 'selene'
 
 
