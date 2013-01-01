@@ -5,8 +5,8 @@ module Selene
       @component = Hash.new { |component, property| component[property] = [] }
     end
 
-    def parse(key, value)
-      @component[key.downcase] = value
+    def parse(name, params, value)
+      @component[name.downcase] = value
     end
 
     def append(builder)

@@ -10,11 +10,11 @@ module Selene
     def self.parse(string)
       { 'calendars' => [] }.tap do |feed|
         stack = []
-        split(string).each_with_index do |line, i|
-          key, value = line.split(':', 2)
-          if key.upcase == 'BEGIN'
+        split(string).each_with_index do |raw_line, i|
+          name, params, value = separate_line(raw_line).values_at :name, :params, :value
+          if name.upcase == 'BEGIN'
             stack << builder(value).new
-          elsif key.upcase == 'END'
+          elsif name.upcase == 'END'
             builder = stack.pop
             if !stack.empty?
               stack[-1].append(builder)
@@ -22,7 +22,7 @@ module Selene
               feed['calendars'] << builder.component
             end
           else
-            stack[-1].parse(key, value)
+            stack[-1].parse(name, params, value)
           end
         end
       end
@@ -42,6 +42,12 @@ module Selene
     def self.split(string)
       line_break = string.scan(/\r\n?|\n/).first || "\r\n"
       string.gsub(/#{line_break}\s/, '').split(line_break)
+    end
+
+    def self.separate_line(raw_line)
+      raw_line.split(':', 2).tap do |name, value|
+        return { :name => name, :value => value }
+      end
     end
 
   end

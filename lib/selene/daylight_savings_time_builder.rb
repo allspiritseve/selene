@@ -9,8 +9,13 @@ module Selene
       @component
     end
 
-    def parse(key, value)
-      @component[key.downcase] = value
+    def parse(name, params, value)
+      case name
+      when 'RRULE' 
+        @component[name.downcase] = Hash[value.split(';').map { |v| v.split('=') }.map { |k, v| [k.downcase, v] }]
+      else
+        @component[name.downcase] = value
+      end
     end
   end
 end

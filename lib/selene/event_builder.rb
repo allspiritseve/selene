@@ -9,8 +9,8 @@ module Selene
       @component
     end
 
-    def parse(key, value)
-      component[key.downcase] = value
+    def parse(name, params, value)
+      component[name.downcase] = value
     end
 
   end

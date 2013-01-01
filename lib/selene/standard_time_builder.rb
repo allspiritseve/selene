@@ -1,8 +1,16 @@
 module Selene
   class StandardTimeBuilder
-    attr_accessor :component
 
-    def parse(key, value)
+    def initialize
+      @component = {}
+    end
+
+    def component
+      @component
+    end
+
+    def parse(name, params, value)
+      @component[name.downcase] = value
     end
   end
 end

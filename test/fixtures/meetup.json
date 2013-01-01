@@ -18,7 +18,11 @@
               "tzoffsetto": "-0400",
               "tzname": "EDT",
               "dtstart": "19700308T020000",
-              "rrule": "FREQ=YEARLY;BYMONTH=3;BYDAY=2SU"
+              "rrule": {
+                "freq": "YEARLY",
+                "bymonth": "3",
+                "byday": "2SU"
+              }
             }
           ]
         }

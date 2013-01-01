@@ -12,6 +12,14 @@ module Selene
       assert_equal Selene::Parser.parse(""), { 'calendars' => [] }
     end
 
+    def test_separates_simple_line
+      assert_equal Selene::Parser.separate_line('VERSION:2.0'), { :name => 'VERSION', :value => '2.0' }
+    end
+
+    def test_separates_line_with_url
+      assert_equal Selene::Parser.separate_line('TZURL:http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/'), { :name => 'TZURL', :value => 'http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/' }
+    end
+
     # Sanity tests just to make sure the thing works
 
     def test_parses_simple_calendar
