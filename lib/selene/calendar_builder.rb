@@ -1,19 +1,12 @@
 module Selene
   class CalendarBuilder
 
-    PROPERTIES = %w(prodid version calscale method (x|iana)-.)
-
     def initialize
-      @component = Hash.new { |h, attr| h[attr] = [] }
+      @component = Hash.new { |component, property| component[property] = [] }
     end
 
     def parse(key, value)
-      raise "Unknown calendar property #{key}" unless valid_property?(key)
       @component[key.downcase] = value
-    end
-
-    def valid_property?(name)
-      PROPERTIES.any? { |p| name.downcase.match(p) }
     end
 
     def append(builder)
