@@ -47,7 +47,10 @@
           "description": "DetroitRuby\\nThursday\\, January 10 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/93346412/",
           "class": "PUBLIC",
           "created": "20120106T161509Z",
-          "geo": "42.33;-83.05",
+          "geo": [
+            "42.33",
+            "-83.05"
+          ],
           "location": "Compuware Building (One Campus Martius\\, Detroit\\, MI 48226)",
           "url": "http://www.meetup.com/DetroitRuby/events/93346412/",
           "last-modified": "20120106T161509Z",
@@ -72,7 +75,10 @@
           "description": "DetroitRuby\\nThursday\\, February 14 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrdbsb/",
           "class": "PUBLIC",
           "created": "20120106T161509Z",
-          "geo": "42.33;-83.05",
+          "geo": [
+            "42.33",
+            "-83.05"
+          ],
           "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrdbsb/",
           "last-modified": "20120106T161509Z",
           "uid": "event_qgkxkcyrdbsb@meetup.com"
@@ -96,7 +102,10 @@
           "description": "DetroitRuby\\nThursday\\, March 14 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrfbsb/",
           "class": "PUBLIC",
           "created": "20120106T161509Z",
-          "geo": "42.33;-83.05",
+          "geo": [
+            "42.33",
+            "-83.05"
+          ],
           "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrfbsb/",
           "last-modified": "20120106T161509Z",
           "uid": "event_qgkxkcyrfbsb@meetup.com"
@@ -120,7 +129,10 @@
           "description": "DetroitRuby\\nThursday\\, April 11 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrgbpb/",
           "class": "PUBLIC",
           "created": "20120106T161509Z",
-          "geo": "42.33;-83.05",
+          "geo": [
+            "42.33",
+            "-83.05"
+          ],
           "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrgbpb/",
           "last-modified": "20120106T161509Z",
           "uid": "event_qgkxkcyrgbpb@meetup.com"
@@ -144,7 +156,10 @@
           "description": "DetroitRuby\\nThursday\\, May 9 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrhbmb/",
           "class": "PUBLIC",
           "created": "20120106T161509Z",
-          "geo": "42.33;-83.05",
+          "geo": [
+            "42.33",
+            "-83.05"
+          ],
           "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrhbmb/",
           "last-modified": "20120106T161509Z",
           "uid": "event_qgkxkcyrhbmb@meetup.com"
@@ -168,7 +183,10 @@
           "description": "DetroitRuby\\nThursday\\, June 13 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrjbrb/",
           "class": "PUBLIC",
           "created": "20120106T161509Z",
-          "geo": "42.33;-83.05",
+          "geo": [
+            "42.33",
+            "-83.05"
+          ],
           "url": "http://www.meetup.com/DetroitRuby/events/qgkxkcyrjbrb/",
           "last-modified": "20120106T161509Z",
           "uid": "event_qgkxkcyrjbrb@meetup.com"

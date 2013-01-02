@@ -13,6 +13,8 @@ module Selene
       component[name.downcase] = case name
       when 'DTSTART', 'DTEND'
         params ? [value, params] : value
+      when 'GEO'
+        value.split(';')
       else
         value
       end
