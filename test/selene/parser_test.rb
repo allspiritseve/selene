@@ -12,12 +12,18 @@ module Selene
       assert_equal Selene::Parser.parse(""), { 'calendars' => [] }
     end
 
-    def test_separates_simple_line
-      assert_equal Selene::Parser.separate_line('VERSION:2.0'), { :name => 'VERSION', :value => '2.0' }
+    def test_parses_content_line
+      assert_equal Selene::Parser.parse_content_line('VERSION:2.0'), { :name => 'VERSION', :params => nil, :value => '2.0' }
     end
 
-    def test_separates_line_with_url
-      assert_equal Selene::Parser.separate_line('TZURL:http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/'), { :name => 'TZURL', :value => 'http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/' }
+    def test_parses_content_line_with_url
+      expected = { :name => 'TZURL', :params => nil, :value => 'http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/' }
+      assert_equal Selene::Parser.parse_content_line('TZURL:http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/'), expected
+    end
+
+    def test_parses_content_line_with_param
+      expected = { :name => 'DTSTART', :params => { 'tzid' => 'America/New_York' }, :value => '20130110T183000' } 
+      assert_equal Selene::Parser.parse_content_line('DTSTART;TZID=America/New_York:20130110T183000'), expected
     end
 
     # Sanity tests just to make sure the thing works
@@ -27,9 +33,8 @@ module Selene
     end
 
     def test_parses_meetup_calendar
-      actual = Selene::Parser.parse(fixture('meetup.ics'))
       expected = JSON.parse(fixture('meetup.json'))
-      assert_equal actual, expected
+      assert_equal Selene::Parser.parse(fixture('meetup.ics')), expected
     end
   end
 end

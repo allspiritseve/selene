@@ -30,8 +30,18 @@
       "events": [
         {
           "dtstamp": "20121231T093631Z",
-          "dtstart;tzid=america/new_york": "20130110T183000",
-          "dtend;tzid=america/new_york": "20130110T213000",
+          "dtstart": [
+            "20130110T183000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
+          "dtend": [
+            "20130110T213000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
           "status": "CONFIRMED",
           "summary": "DetroitRuby: 2012 Plan + Lightning talks",
           "description": "DetroitRuby\\nThursday\\, January 10 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/93346412/",
@@ -45,8 +55,18 @@
         },
         {
           "dtstamp": "20121231T093631Z",
-          "dtstart;tzid=america/new_york": "20130214T183000",
-          "dtend;tzid=america/new_york": "20130214T213000",
+          "dtstart": [
+            "20130214T183000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
+          "dtend": [
+            "20130214T213000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
           "status": "CONFIRMED",
           "summary": "DetroitRuby: 2012 Plan + Lightning talks",
           "description": "DetroitRuby\\nThursday\\, February 14 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrdbsb/",
@@ -59,8 +79,18 @@
         },
         {
           "dtstamp": "20121231T093631Z",
-          "dtstart;tzid=america/new_york": "20130314T183000",
-          "dtend;tzid=america/new_york": "20130314T213000",
+          "dtstart": [
+            "20130314T183000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
+          "dtend": [
+            "20130314T213000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
           "status": "CONFIRMED",
           "summary": "DetroitRuby: 2012 Plan + Lightning talks",
           "description": "DetroitRuby\\nThursday\\, March 14 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrfbsb/",
@@ -73,8 +103,18 @@
         },
         {
           "dtstamp": "20121231T093631Z",
-          "dtstart;tzid=america/new_york": "20130411T183000",
-          "dtend;tzid=america/new_york": "20130411T213000",
+          "dtstart": [
+            "20130411T183000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
+          "dtend": [
+            "20130411T213000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
           "status": "CONFIRMED",
           "summary": "DetroitRuby: 2012 Plan + Lightning talks",
           "description": "DetroitRuby\\nThursday\\, April 11 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrgbpb/",
@@ -87,8 +127,18 @@
         },
         {
           "dtstamp": "20121231T093631Z",
-          "dtstart;tzid=america/new_york": "20130509T183000",
-          "dtend;tzid=america/new_york": "20130509T213000",
+          "dtstart": [
+            "20130509T183000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
+          "dtend": [
+            "20130509T213000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
           "status": "CONFIRMED",
           "summary": "DetroitRuby: 2012 Plan + Lightning talks",
           "description": "DetroitRuby\\nThursday\\, May 9 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrhbmb/",
@@ -101,8 +151,18 @@
         },
         {
           "dtstamp": "20121231T093631Z",
-          "dtstart;tzid=america/new_york": "20130613T183000",
-          "dtend;tzid=america/new_york": "20130613T213000",
+          "dtstart": [
+            "20130613T183000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
+          "dtend": [
+            "20130613T213000",
+            {
+              "tzid": "America/New_York"
+            }
+          ],
           "status": "CONFIRMED",
           "summary": "DetroitRuby: 2012 Plan + Lightning talks",
           "description": "DetroitRuby\\nThursday\\, June 13 at 6:30 PM\\n\\nIts wild\\, its crazy\\, its DetroitRuby 2012! Hey everyone Happy New year! A lot of changes for this year for DetroitRuby! We are hoping to do away with ...\\n\\nDetails: http://www.meetup.com/DetroitRuby/events/qgkxkcyrjbrb/",

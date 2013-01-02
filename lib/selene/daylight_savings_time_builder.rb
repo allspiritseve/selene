@@ -10,11 +10,11 @@ module Selene
     end
 
     def parse(name, params, value)
-      case name
+      @component[name.downcase] = case name
       when 'RRULE' 
-        @component[name.downcase] = Hash[value.split(';').map { |v| v.split('=') }.map { |k, v| [k.downcase, v] }]
+        Hash[value.split(';').map { |vs| k, v = vs.split('=', 2); [k.downcase, v] }]
       else
-        @component[name.downcase] = value
+        value
       end
     end
   end

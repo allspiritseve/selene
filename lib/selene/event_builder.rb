@@ -10,7 +10,12 @@ module Selene
     end
 
     def parse(name, params, value)
-      component[name.downcase] = value
+      component[name.downcase] = case name
+      when 'DTSTART', 'DTEND'
+        params ? [value, params] : value
+      else
+        value
+      end
     end
 
   end
