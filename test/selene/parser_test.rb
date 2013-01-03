@@ -5,7 +5,7 @@ module Selene
   class ParserTest < TestCase
 
     def test_lines_are_unfolded_before_splitting
-      assert_equal Selene::Parser.split("This is a\r\n  test").first, "This is a test"
+      assert_equal Selene::Parser.split_content_lines("This is a\r\n  test").first, "This is a test"
     end
 
     def test_parses_blank_string
