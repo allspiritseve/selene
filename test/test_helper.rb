@@ -12,6 +12,13 @@ module Selene
       File.read(File.join(File.dirname(__FILE__), 'fixtures', filename))
     end
 
+    # This is a helper method that takes a name, params and a value, turns them into a proper line hash,
+    # and passes them to the builder to be parsed.
+    def parse_line(name, params, value)
+      raise "Must define builder method in test case" unless builder
+      builder.parse(Parser.content_line(name, params, value))
+    end
+
   end
 end
 

@@ -9,12 +9,12 @@ module Selene
       @component
     end
 
-    def parse(name, params, value)
-      @component[name.downcase] = case name
+    def parse(line)
+      @component[line[:name].downcase] = case line[:name]
       when 'RRULE' 
-        Hash[value.split(';').map { |vs| k, v = vs.split('=', 2); [k.downcase, v] }]
+        Hash[line[:value].split(';').map { |vs| k, v = vs.split('=', 2); [k.downcase, v] }]
       else
-        value
+        line[:value]
       end
     end
   end

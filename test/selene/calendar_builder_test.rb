@@ -16,27 +16,27 @@ module Selene
     end
 
     def test_parse_prodid
-      builder.parse('PRODID', '', '-//Meetup//RemoteApi//EN')
+      parse_line('PRODID', '', '-//Meetup//RemoteApi//EN')
       assert_equal builder.component['prodid'], '-//Meetup//RemoteApi//EN'
     end
 
     def test_parse_version
-      builder.parse('VERSION', '', '2.0')
+      parse_line('VERSION', '', '2.0')
       assert_equal @builder.component['version'], '2.0'
     end
 
     def test_parse_calscale
-      builder.parse('CALSCALE', '', 'Gregorian')
+      parse_line('CALSCALE', '', 'Gregorian')
       assert_equal builder.component['calscale'], 'Gregorian'
     end
 
     def test_parse_method
-      builder.parse('METHOD', '', 'Publish')
+      parse_line('METHOD', '', 'Publish')
       assert_equal builder.component['method'], 'Publish'
     end
 
     def test_parse_x_prop
-      builder.parse('X-ORIGINAL-URL', '', 'http://www.google.com')
+      parse_line('X-ORIGINAL-URL', '', 'http://www.google.com')
       assert_equal builder.component['x-original-url'], 'http://www.google.com'
     end
 

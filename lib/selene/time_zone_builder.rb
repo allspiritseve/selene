@@ -9,8 +9,8 @@ module Selene
       @component
     end
 
-    def parse(name, params, value)
-      @component[name.downcase] = value
+    def parse(line)
+      @component[line[:name].downcase] = line[:value]
     end
 
     def append(builder)

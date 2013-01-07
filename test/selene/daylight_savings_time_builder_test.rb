@@ -8,7 +8,7 @@ module Selene
     end
 
     def test_parses_rrule 
-      builder.parse('RRULE', '', 'FREQ=YEARLY;BYMONTH=3;BYDAY=2SU')
+      parse_line('RRULE', '', 'FREQ=YEARLY;BYMONTH=3;BYDAY=2SU')
       assert_equal builder.component['rrule'], { 'freq' => 'YEARLY', 'bymonth' => '3', 'byday' => '2SU' }
     end
 

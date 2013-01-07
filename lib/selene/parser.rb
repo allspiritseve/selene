@@ -35,7 +35,7 @@ module Selene
               feed['calendars'] << builder.component
             end
           else
-            stack[-1].parse(line[:name], line[:params], line[:value])
+            stack[-1].parse(line)
           end
         end
       end
@@ -43,16 +43,20 @@ module Selene
 
     def self.parse_content_line(string)
       string =~ /([^:\;]+)(?:\;([^:]*))?:(.*)/i
-      { :name => $1, :params => parse_params($2), :value => $3 }
+      content_line($1, parse_params($2), $3)
     end
 
-    def self.parse_date_and_time(name, params, value)
-      params && params != {} ? [value, params] : value
+    def self.content_line(name, params, value)
+      { :name => name, :params => params, :value => value }
+    end
+
+    def self.parse_date_and_time(line)
+      line[:params] && line[:params] != {} ? [line[:value], line[:params]] : line[:value]
     end
 
     def self.parse_params(raw_params)
-      return unless raw_params
       {}.tap do |params|
+        return params unless raw_params
         raw_params.scan(/[^\;]+/i).map do |param|
           param =~ /([^=]+)=(.*)/
           params[$1.downcase] = $2

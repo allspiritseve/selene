@@ -13,11 +13,11 @@ module Selene
     end
 
     def test_parses_content_line
-      assert_equal Selene::Parser.parse_content_line('VERSION:2.0'), { :name => 'VERSION', :params => nil, :value => '2.0' }
+      assert_equal Selene::Parser.parse_content_line('VERSION:2.0'), { :name => 'VERSION', :params => {}, :value => '2.0' }
     end
 
     def test_parses_content_line_with_url
-      expected = { :name => 'TZURL', :params => nil, :value => 'http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/' }
+      expected = { :name => 'TZURL', :params => {}, :value => 'http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/' }
       assert_equal Selene::Parser.parse_content_line('TZURL:http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/'), expected
     end
 
