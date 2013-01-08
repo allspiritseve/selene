@@ -16,7 +16,7 @@ module Selene
     # and passes them to the builder to be parsed.
     def parse_line(name, params, value)
       raise "Must define builder method in test case" unless builder
-      builder.parse(Parser.content_line(name, params, value))
+      builder.parse(Line.new(name, params, value))
     end
 
   end

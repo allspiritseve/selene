@@ -10,13 +10,13 @@ module Selene
     end
 
     def parse(line)
-      component[line[:name].downcase] = case line[:name]
+      component[line.name.downcase] = case line.name
       when 'DTSTAMP', 'DTSTART', 'DTEND'
-        Parser.parse_date_and_time(line)
+        line.value_with_params
       when 'GEO'
-        line[:value].split(';')
+        line.value.split(';')
       else
-        line[:value]
+        line.value
       end
     end
 
