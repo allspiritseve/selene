@@ -43,14 +43,14 @@ module Selene
 
     def test_append_event_builder
       event_builder.stub :component, { 'summary' => "Bluth's Best Party" }
-      builder.append(event_builder)
-      assert_equal builder.component['events'].first['summary'], "Bluth's Best Party"
+      builder.add('vevent', event_builder)
+      assert_equal builder.component['vevent'].first['summary'], "Bluth's Best Party"
     end
 
     def test_append_time_zone_builder
       time_zone_builder.stub :component, { 'tzid' => 'America/Detroit' }
-      builder.append(time_zone_builder)
-      assert_equal builder.component['time_zones'].first, { 'tzid' => 'America/Detroit' }
+      builder.add('vtimezone', time_zone_builder)
+      assert_equal builder.component['vtimezone'].first, { 'tzid' => 'America/Detroit' }
     end
 
     # Validation

@@ -1,29 +1,17 @@
 module Selene
-  class EventBuilder
+  class EventBuilder < ComponentBuilder
 
-    def initialize
-      @component = Hash.new { |component, property| component[property] = [] }
-    end
+    require_property :dtstamp, :uid
+    single_property :dtstamp, :uid, :dtstart
 
-    def component
-      @component
-    end
-
-    def parse(line)
-      component[line.name] = case line.name
+    def parse_value(line)
+      case line.name
       when 'dtstamp', 'dtstart', 'dtend'
         line.value_with_params
       when 'geo'
-        line.value.split(';')
+        line.values
       else
-        line.value
-      end
-    end
-
-    def append(builder)
-      case builder
-      when AlarmBuilder
-        @component['alarms'] << builder.component
+        super
       end
     end
 

@@ -1,5 +1,5 @@
 {
-  "calendars": [
+  "vcalendar": [
     {
       "version": "2.0",
       "prodid": "-//Meetup//RemoteApi//EN",
@@ -7,7 +7,7 @@
       "method": "PUBLISH",
       "x-original-url": "http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/",
       "x-wr-calname": "Events - DetroitRuby",
-      "time_zones": [
+      "vtimezone": [
         {
           "tzid": "America/New_York",
           "tzurl": "http://tzurl.org/zoneinfo-outlook/America/New_York",
@@ -24,10 +24,19 @@
                 "byday": "2SU"
               }
             }
+          ],
+          "standard": [
+            {
+              "tzoffsetfrom": "-0400",
+              "tzoffsetto": "-0500",
+              "tzname": "EST",
+              "dtstart": "19701101T020000",
+              "rrule": "FREQ=YEARLY;BYMONTH=11;BYDAY=1SU"
+            }
           ]
         }
       ],
-      "events": [
+      "vevent": [
         {
           "dtstamp": "20121231T093631Z",
           "dtstart": [

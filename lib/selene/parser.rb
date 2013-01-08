@@ -1,10 +1,10 @@
-require 'selene/alarm_builder'
-require 'selene/builder_helper'
-require 'selene/calendar_builder'
+require 'selene/line'
 require 'selene/component_builder'
+
+require 'selene/alarm_builder'
+require 'selene/calendar_builder'
 require 'selene/daylight_savings_time_builder'
 require 'selene/event_builder'
-require 'selene/line'
 require 'selene/standard_time_builder'
 require 'selene/time_zone_builder'
 
@@ -24,23 +24,20 @@ module Selene
     end
 
     def self.parse(string)
-      { 'calendars' => [] }.tap do |feed|
-        stack = []
-        Line.split(string).each do |line|
-          if line.begin_component?
-            stack << builder(line.value).new
-          elsif line.end_component?
-            builder = stack.pop
-            if !stack.empty?
-              stack[-1].append(builder)
-            else
-              feed['calendars'] << builder.component
-            end
-          else
-            stack[-1].parse(line)
-          end
+      stack = []
+      stack << builder('feed').new
+      Line.split(string).each do |line|
+        if line.begin_component?
+          builder = builder(line.value).new
+          stack[-1].add(line.value, builder) unless stack.empty?
+          stack << builder
+        elsif line.end_component?
+          stack.pop
+        else
+          stack[-1].parse(line)
         end
       end
+      stack[-1].component
     end
 
   end

@@ -6,12 +6,12 @@ module Selene
     include FixtureHelper
 
     def test_parses_blank_string
-      assert_equal Selene::Parser.parse(""), { 'calendars' => [] }
+      assert_equal Selene::Parser.parse(""), {}
     end
 
     def test_parses_simple_calendar
       assert_equal Selene::Parser.parse("BEGIN:VCALENDAR\r\nSUMMARY:Meetups\r\nEND:VCALENDAR"),
-        { 'calendars' => [{ 'summary' => 'Meetups' }] }
+        { 'vcalendar' => [{ 'summary' => 'Meetups' }] }
     end
 
     def test_parses_meetup_calendar
