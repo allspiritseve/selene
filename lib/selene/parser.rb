@@ -1,5 +1,7 @@
 require 'selene/alarm_builder'
+require 'selene/builder_helper'
 require 'selene/calendar_builder'
+require 'selene/component_builder'
 require 'selene/daylight_savings_time_builder'
 require 'selene/event_builder'
 require 'selene/line'
@@ -10,14 +12,14 @@ module Selene
   module Parser
 
     def self.builder(component)
-      case component
-      when 'VCALENDAR' then CalendarBuilder
-      when 'VTIMEZONE' then TimeZoneBuilder
-      when 'DAYLIGHT' then DaylightSavingsTimeBuilder
-      when 'STANDARD' then StandardTimeBuilder
-      when 'VEVENT' then EventBuilder
-      when 'VALARM' then AlarmBuilder
-      else raise "Unknown component #{component}"
+      case component.downcase
+      when 'vcalendar' then CalendarBuilder
+      when 'vtimezone' then TimeZoneBuilder
+      when 'daylight' then DaylightSavingsTimeBuilder
+      when 'standard' then StandardTimeBuilder
+      when 'vevent' then EventBuilder
+      when 'valarm' then AlarmBuilder
+      else ComponentBuilder
       end
     end
 

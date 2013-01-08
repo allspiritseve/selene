@@ -1,5 +1,18 @@
 module Selene
   class CalendarBuilder
+    include BuilderHelper
+
+    attr_reader :component, :errors
+
+    validate :required => %w(prodid version)
+    validate :single => %w(prodid version calscale method)
+
+    # %w(calscale method).each do |property|
+    #   validate property, :single
+    # end
+
+    single_property :prodid, :version, :calscale, :method
+    require_property :prodid, :version
 
     def initialize
       @errors = []
@@ -7,12 +20,11 @@ module Selene
     end
 
     def parse(line)
-      set_property line.name, line.value
-    end
-
-    def set_property(name, value)
-      @errors << { :property => name, :message => "#{name} must not occur more than once http://tools.ietf.org/html/rfc5545#section-3.6" }
-      @component[name] = value
+      if @component.key?(line.name) && single_property?(line.name)
+        @errors << { :line => line, :message => "cannot have more than one '#{line.name}' property" }
+      else
+        @component[line.name] = line.value
+      end
     end
 
     def append(builder)
@@ -24,8 +36,5 @@ module Selene
       end
     end
 
-    def component
-      @component
-    end
   end
 end

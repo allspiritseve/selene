@@ -1,7 +1,11 @@
 require 'test_helper'
 
 module Selene
-  class AlarmBuilderTest < TestCase
+  class AlarmBuilderTest < MiniTest::Unit::TestCase
+    include BuilderTestHelper
+
+    def setup
+    end
 
     def builder
       @builder ||= AlarmBuilder.new

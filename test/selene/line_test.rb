@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Selene
-  class LineTest < TestCase
+  class LineTest < MiniTest::Unit::TestCase
 
     def test_lines_are_unfolded_before_splitting
       assert_equal Line.split("TEST:This is a\r\n  test").first.value, "This is a test"
