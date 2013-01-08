@@ -54,8 +54,9 @@ module Selene
 
     def assert_multiple_values_do_not_overwrite property
       parse_line(property, {}, 'Some Value')
+      value = builder.component[property].dup
       parse_line(property, {}, 'Another Value')
-      assert_equal builder.component[property], 'Some Value'
+      assert_equal builder.component[property], value
     end
   end
 end

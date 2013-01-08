@@ -68,17 +68,5 @@ module Selene
       end
     end
 
-    def test_single_properties
-      %w(calscale method).each do |property|
-        assert_single property
-      end
-    end
-
-    def test_multiple_versions_uses_first
-      parse_line('VERSION', {}, '2.0')
-      parse_line('VERSION', {}, '3.0')
-      assert_equal @builder.component['version'], '2.0'
-    end
-
   end
 end

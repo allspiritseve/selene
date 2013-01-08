@@ -84,5 +84,25 @@ module Selene
       assert_equal builder.component['uid'], 'event_qgkxkcyrcbnb@meetup.com'
     end
 
+    # Validation
+
+    %w(dtstamp uid).each do |property|
+      define_method "test_#{property}_required" do
+        assert_required property
+      end
+    end
+
+    %w(dtstamp uid dtstart class created description geo last-mod location organizer priority seq status summary transp url recurid).each do |property|
+      define_method "test_#{property}_cant_be_defined_more_than_once" do
+        assert_single property
+        assert_multiple_values_do_not_overwrite property
+      end
+    end
+
+    def test_adding_to_non_calendar_raises_exception
+      assert_raises Exception do
+        builder.parent = TimeZoneBuilder.new
+      end
+    end
   end
 end
