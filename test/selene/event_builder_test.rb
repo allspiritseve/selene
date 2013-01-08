@@ -24,9 +24,8 @@ module Selene
     end
 
     def test_parses_dtend
-      expected = ['20130110T183000', { 'tzid' => 'America/New_York' }]
       parse_line('DTEND', { 'tzid' => 'America/New_York' }, '20130110T183000')
-      assert_equal builder.component['dtend'], expected
+      assert_equal builder.component['dtend'], ['20130110T183000', { 'tzid' => 'America/New_York' }]
     end
 
     def test_parses_dtstart_without_tzid

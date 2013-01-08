@@ -10,10 +10,10 @@ module Selene
     end
 
     def parse(line)
-      component[line.name.downcase] = case line.name
-      when 'DTSTAMP', 'DTSTART', 'DTEND'
+      component[line.name] = case line.name
+      when 'dtstamp', 'dtstart', 'dtend'
         line.value_with_params
-      when 'GEO'
+      when 'geo'
         line.value.split(';')
       else
         line.value

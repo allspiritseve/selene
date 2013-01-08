@@ -8,17 +8,17 @@ module Selene
     end
 
     def test_parses_content_line
-      assert_equal Line.parse('VERSION:2.0'), { :name => 'VERSION', :params => {}, :value => '2.0' }
+      assert_equal Line.parse('VERSION:2.0'), Line.new('VERSION', {}, '2.0')
     end
 
     def test_parses_url
-      expected = { :name => 'TZURL', :params => {}, :value => 'http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/' }
-      assert_equal Line.parse('TZURL:http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/'), expected
+      assert_equal Line.parse('TZURL:http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/'),
+        Line.new('TZURL', {}, 'http://www.meetup.com/DetroitRuby/events/ical/DetroitRuby/')
     end
 
     def test_parses_params
-      expected = { :name => 'DTSTART', :params => { 'tzid' => 'America/New_York' }, :value => '20130110T183000' }
-      assert_equal Line.parse('DTSTART;TZID=America/New_York:20130110T183000'), expected
+      assert_equal Line.parse('DTSTART;TZID=America/New_York:20130110T183000'),
+        Line.new('DTSTART', { 'tzid' => 'America/New_York' }, '20130110T183000')
     end
   end
 end

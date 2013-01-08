@@ -11,11 +11,8 @@ module Selene
     end
 
     def set_property(name, value)
-      @component[name.downcase] = value
-    end
-
-    def name(line)
-      line.name.downcase
+      @errors << { :property => name, :message => "#{name} must not occur more than once http://tools.ietf.org/html/rfc5545#section-3.6" }
+      @component[name] = value
     end
 
     def append(builder)

@@ -29,7 +29,7 @@ module Selene
       end
     end
 
-
+    # Parse a param string into a hash
     def self.parse_params(params_string)
       {}.tap do |params|
         return params unless params_string
@@ -42,17 +42,17 @@ module Selene
     end
 
     def initialize(name, params, value)
-      self.name = name.upcase
+      self.name = name.downcase
       self.params = params || {}
       self.value = value
     end
 
     def begin_component?
-      name == 'BEGIN'
+      name == 'begin'
     end
 
     def end_component?
-      name == 'END'
+      name == 'end'
     end
 
     def params?
@@ -61,11 +61,6 @@ module Selene
 
     def value_with_params
       params? ? [value, params] : value
-    end
-
-    def ==(line)
-      super(line) unless line.is_a?(Hash)
-      members.all? { |key| line[key] == self.send(key) }
     end
 
   end

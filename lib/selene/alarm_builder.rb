@@ -10,7 +10,7 @@ module Selene
     end
 
     def parse(line)
-      @component[line.name.downcase] = line.value
+      @component[line.name] = line.value
     end
 
   end

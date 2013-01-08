@@ -1,8 +1,6 @@
 # Selene
 
-Selene is an iCalendar parser for Ruby. It takes a string in iCalendar format (RFC 5545) and outputs a hash.
-
-![Selene](http://corykaufman.com/images/selene.png)
+Selene is an iCalendar parser for Ruby. It takes a string in iCalendar format (RFC 5545) and outputs a serializable hash.
 
 ## Installation
 
@@ -31,3 +29,5 @@ ical = Selene.parse(File.read('calendar.ics'))
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+![Selene](http://corykaufman.com/images/selene.png)

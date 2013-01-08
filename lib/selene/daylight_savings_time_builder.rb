@@ -10,8 +10,8 @@ module Selene
     end
 
     def parse(line)
-      @component[line.name.downcase] = case line.name
-      when 'RRULE'
+      @component[line.name] = case line.name
+      when 'rrule'
         Hash[line.value.split(';').map { |vs| k, v = vs.split('=', 2); [k.downcase, v] }]
       else
         line.value
