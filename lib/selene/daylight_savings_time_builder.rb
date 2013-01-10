@@ -1,7 +1,7 @@
 module Selene
   class DaylightSavingsTimeBuilder < ComponentBuilder
 
-    def parse_value(line)
+    def value(line)
       case line.name
       when 'rrule'
         line.rrule

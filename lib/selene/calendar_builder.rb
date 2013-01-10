@@ -1,8 +1,9 @@
 module Selene
   class CalendarBuilder < ComponentBuilder
 
-    single_property :prodid, :version, :calscale, :method
-    require_property :prodid, :version
+    REQUIRED_PROPERTIES = %w(prodid version)
+
+    DISTINCT_PROPERTIES = %w(prodid version calscale method)
 
   end
 end

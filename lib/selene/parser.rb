@@ -1,4 +1,5 @@
 require 'selene/line'
+require 'selene/component_rules'
 require 'selene/component_builder'
 
 require 'selene/alarm_builder'

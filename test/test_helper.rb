@@ -47,9 +47,11 @@ module Selene
     end
 
     def assert_single property
-      2.times { parse_line(property, {}, 'Some Value') }
-      message = "cannot have more than one '#{property}' property"
-      assert builder.errors.any? { |e| e[:message] =~ /#{message}/ }, message
+      parse_line(property, {}, 'Some Value')
+      n = builder.errors.count
+      parse_line(property, {}, 'Another Value')
+      n = builder.errors.count - n
+      assert_equal n, 1, "Cannot have more than one #{property}"
     end
 
     def assert_multiple_values_do_not_overwrite property
@@ -58,5 +60,6 @@ module Selene
       parse_line(property, {}, 'Another Value')
       assert_equal builder.component[property], value
     end
+
   end
 end
