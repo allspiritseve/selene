@@ -8,6 +8,10 @@ module Selene
       @builder ||= EventBuilder.new
     end
 
+    def builder_with_parent
+      builder.tap { |b| b.parent = CalendarBuilder.new }
+    end
+
     def test_parses_dtstart
       parse_line('DTSTART', { 'tzid' => 'America/New_York' }, '20130110T183000')
       assert_equal builder.component['dtstart'],
@@ -84,6 +88,10 @@ module Selene
       assert_equal builder.component['uid'], 'event_qgkxkcyrcbnb@meetup.com'
     end
 
+    def test_sets_parent_calendar
+      assert builder_with_parent.parent.is_a?(CalendarBuilder), "Must be able to set the parent calendar builder"
+    end
+
     # Validation
 
     %w(dtstamp uid).each do |property|
@@ -103,6 +111,11 @@ module Selene
       assert_raises Exception do
         builder.parent = TimeZoneBuilder.new
       end
+    end
+
+    def test_dtstart_required_if_no_calendar_method
+      builder_with_parent.valid?
+      assert builder.errors.any? { |e| e[:message] == "Property 'dtstart' required if the calendar does not specify a 'method' property" }
     end
   end
 end

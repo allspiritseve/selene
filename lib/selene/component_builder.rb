@@ -33,8 +33,13 @@ module Selene
       line.value
     end
 
+    def a_component_rules
+      @component_rules
+    end
+
     def valid?
-      @component_rules.all? { |message, rule| rule.call(message) } && @errors.empty?
+      @component_rules.each { |message, rule| rule.call(message) }
+      @errors.empty?
     end
 
   end

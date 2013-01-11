@@ -14,8 +14,6 @@ module Selene
       %w(dtend duration)
     ]
 
-    # forbid :dtend if duration
-    # forbid :duration if dtend
     # require_property :dtstart, :if => lambda { |b| b.parent.key?['method'] }
     # single_property :rrule, :except => when?
     # if dtstart is a date, dtend has to be too
@@ -35,6 +33,16 @@ module Selene
 
     def parent=(builder)
       raise Exception.new("Event components cannot be nested inside anything but a calendar component") unless builder.is_a?(CalendarBuilder)
+      super(builder)
+    end
+
+    def component_rules(component)
+      super(component).tap do |rules|
+        rules["Property 'dtstart' required if the calendar does not specify a 'method' property"] = lambda do |message|
+          return if @component.key?('dtstart') || parent && parent.component.key?('method')
+          @errors << { :message => message }
+        end
+      end
     end
 
   end
