@@ -14,11 +14,9 @@ module Selene
       %w(dtend duration)
     ]
 
-    # require_property :dtstart, :if => lambda { |b| b.parent.key?['method'] }
     # single_property :rrule, :except => when?
     # if dtstart is a date, dtend has to be too
     # multi-day durations must be 'dur-day' or 'dur-week'
-    # parent must be a calendar
 
     def value(line)
       case line.name
