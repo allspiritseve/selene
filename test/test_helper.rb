@@ -36,31 +36,21 @@ module Selene
 
   module BuilderTestHelper
 
-    # This is a helper method that takes a name, params and a value, turns them into a proper line hash,
-    # and passes them to the builder to be parsed.
-    def parse_line(name, params, value)
-      builder.parse(Line.new(name, params, value))
-    end
-
-    def assert_required property
+    def assert_required builder, property
       builder.valid?
-      message = "missing required property '#{property}'"
-      assert builder.errors.any? { |e| e[:message] =~ /#{message}/ }, message
+      assert_error builder, property, "missing required property '#{property}'"
     end
 
-    def assert_single property
-      parse_line(property, {}, 'Some Value')
-      n = builder.errors.count
-      parse_line(property, {}, 'Another Value')
-      n = builder.errors.count - n
-      assert_equal n, 1, "Cannot have more than one #{property}"
+    def assert_single builder, property
+      builder.parse(Line.new(property, {}, 'First Value'))
+      original_value = builder.component[property]
+      builder.parse(Line.new(property, {}, 'Second Value'))
+      assert_error builder, property, "property '#{property}' must not occur more than once"
+      assert_equal original_value, builder.component[property]
     end
 
-    def assert_multiple_values_do_not_overwrite property
-      parse_line(property, {}, 'Some Value')
-      value = builder.component[property].dup
-      parse_line(property, {}, 'Another Value')
-      assert_equal builder.component[property], value
+    def assert_error builder, property, message
+      assert builder.errors[property].any? { |e| e =~ /#{message}/ }, "#{builder.class.name}: #{message}"
     end
 
   end

@@ -5,5 +5,9 @@ module Selene
 
     DISTINCT_PROPERTIES = %w(prodid version calscale method)
 
+    def method_blank?
+      @component['method'].blank?
+    end
+
   end
 end

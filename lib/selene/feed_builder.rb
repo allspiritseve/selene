@@ -1,12 +1,12 @@
 module Selene
-  class FeedBuilder < Builder
+  class FeedBuilder < ComponentBuilder
 
-    def initialize
-      @component = { 'vcalendar' => [] }
+    def can_contain?(builder)
+      !%w(vevent vtimezone valarm standard daylight).include?(builder.name)
     end
 
-    def component
-      @component
+    def error(message) 
+      @component['errors'] << message
     end
 
   end

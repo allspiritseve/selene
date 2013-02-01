@@ -1,36 +1,50 @@
 module Selene
   module ComponentRules
 
-    def property_rules(component)
-      {}.tap do |rules|
-        rules["property %s must not occur more than once"] = lambda do |property, line, message|
-          invalid = @component.key?(property) && component.class::DISTINCT_PROPERTIES.include?(property)
-          !invalid.tap { @errors << { :message => message % property } if invalid }
-        end 
-
-        rules["properties '%s' and '%s' cannot occur in the same component"] = lambda do |property, line, message|
-          passed = true
-          component.class::EXCLUSIVE_PROPERTIES.each do |properties|
-            other_property = properties.find { |p| @component.key?(p) && p != property }
-            next unless other_property
-            passed = false
-            @errors << { :message => message % [property, other_property] }
-          end
-        end
-      end
+    def has_component_rules
+      @@property_rules = {}
+      include InstanceMethods
     end
 
-    def component_rules(component)
-      {}.tap do |rules|
-        rules["missing required property '%s'"] = lambda do |message|
-          passed = true
-          component.class::REQUIRED_PROPERTIES.each do |required|
-            next if @component.key?(required)
-            passed = false
-            @errors << { :message => message % required }
-          end
-          passed
+    def property(name, rules = {})
+      @@property_rules[name] = rules
+    end
+
+    def property_rules
+      @@property_rules
+    end
+
+    module InstanceMethods
+      def property_rules
+        self.class.property_rules
+      end
+
+      def properties
+        property_rules.keys
+      end
+
+      def required?(property)
+        !!property_rules[property][:required]
+      end
+
+      def multiple?(property)
+        !!property_rules[property][:multiple]
+      end
+
+      def can_add?(property)
+        if contains_property?(property.name) && !multiple?(property.name)
+          error(property.name, "property '%s' must not occur more than once" % property.name)
         end
+        @errors.empty?
+      end
+
+      def valid?
+        properties.select { |property| required?(property) }.each do |property|
+          if !contains_property?(property)
+            error(property, "missing required property '%s'" % property)
+          end
+        end
+        @errors.empty?
       end
     end
 

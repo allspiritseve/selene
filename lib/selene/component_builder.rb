@@ -1,28 +1,25 @@
 module Selene
   class ComponentBuilder
-    include ComponentRules
+    extend ComponentRules
 
-    attr_accessor :component, :parent, :errors
+    attr_accessor :component, :name, :parent, :errors
 
-    REQUIRED_PROPERTIES = []
-    DISTINCT_PROPERTIES = []
-    EXCLUSIVE_PROPERTIES = []
+    # component 'vevent'
 
-    def add(name, builder)
-      @component[name.downcase] << builder.component
-      builder.parent = self
+    has_component_rules
+
+    def initialize(name)
+      @name = name
+      @component = Hash.new { |component, property| component[property] = [] }
+      @errors = Hash.new { |errors, property| errors[property] = [] }
     end
 
-    def initialize
-      @component = Hash.new { |component, property| component[property] = [] }
-      @errors = []
-      @property_rules = property_rules(self)
-      @component_rules = component_rules(self)
+    def add(name, builder)
+      @component[name] << builder.component
     end
 
     def parse(line)
-      return unless @property_rules.all? { |message, rule| rule.call(name(line), line, message) }
-      @component[name(line)] = value(line)
+      @component[name(line)] = value(line) if can_add?(line)
     end
 
     def name(line)
@@ -33,13 +30,16 @@ module Selene
       line.value
     end
 
-    def a_component_rules
-      @component_rules
+    def contains_property?(property)
+      @component.key?(property.to_s)
     end
 
-    def valid?
-      @component_rules.each { |message, rule| rule.call(message) }
-      @errors.empty?
+    def can_contain?(component_name)
+      true
+    end
+
+    def error(property, message)
+      @errors[property] << message
     end
 
   end

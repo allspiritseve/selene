@@ -13,7 +13,7 @@ module Selene
     # Match everything that is not ';' (parameter separator)
     PARAM = /[^\;]+/
 
-    # Match everything before '='
+    # Match parameter key and value
     PARAM_KEY_VALUE = /(?<key>[^=]+)=(?<value>.*)/
 
     # Split a string into content lines
@@ -47,6 +47,10 @@ module Selene
 
     def begin_component?
       name == 'begin'
+    end
+
+    def component_name
+      value.downcase
     end
 
     def end_component?

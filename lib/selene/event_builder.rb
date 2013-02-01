@@ -1,22 +1,46 @@
 module Selene
   class EventBuilder < ComponentBuilder
 
-    # These properties are required
-    REQUIRED_PROPERTIES = %w(dtstamp uid)
+    # Property rules:
+    #
+    # If :required is truthy, a component is not valid without that property.
+    # If :multiple is falsy, a component can only have one of that property
+    #
+    # TODO: Add optional properties so I can highlight custom x-prop and iana-prop properties
 
-    # These properties must not occur more than once
-    DISTINCT_PROPERTIES = %w(dtstamp uid dtstart class created description geo
-      last-mod location organizer priority seq status summary
-      transp url recurid)
+    property 'dtstamp', :required => true, :multiple => false
+    property 'uid', :required => true, :multiple => false
 
-    # These properties must not occur together in the same component
-    EXCLUSIVE_PROPERTIES = [
-      %w(dtend duration)
-    ]
+    property 'dtstart', :multiple => false
+    property 'class', :multiple => false
+    property 'created', :multiple => false
+    property 'description', :multiple => false
+    property 'geo', :multiple => false
+    property 'last-mod', :multiple => false
+    property 'location', :multiple => false
+    property 'organizer', :multiple => false
+    property 'priority', :multiple => false
+    property 'seq', :multiple => false
+    property 'status', :multiple => false
+    property 'summary', :multiple => false
+    property 'transp', :multiple => false
+    property 'url', :multiple => false
+    property 'recurid', :mutiple => false
 
-    # single_property :rrule, :except => when?
+    # Both dtend and duration are optional, but they cannot both be specified for the same event
+    # rule :dtend_or_duration
+
+    # The rrule property should not occur more than once (but can if necessary)
+    property 'rrule'
+
     # if dtstart is a date, dtend has to be too
+    # rule :dtstart_date_if_dtend_date
+
     # multi-day durations must be 'dur-day' or 'dur-week'
+    # rule :multi_day_durations
+
+    # The dtstart property is required if the calendar does not have a method property
+    # rule :dtstart_required_if_no_calendar_method
 
     def value(line)
       case line.name
@@ -34,13 +58,11 @@ module Selene
       super(builder)
     end
 
-    def component_rules(component)
-      super(component).tap do |rules|
-        rules["Property 'dtstart' required if the calendar does not specify a 'method' property"] = lambda do |message|
-          return if @component.key?('dtstart') || parent && parent.component.key?('method')
-          @errors << { :message => message }
-        end
+    def valid?
+      if !contains_property?('dtstart') && !parent.contains_property?('method')
+        error('dtstart', "The 'dtstart' property is required if the calendar does not have a 'method' property")
       end
+      super
     end
 
   end
