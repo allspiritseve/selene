@@ -2,33 +2,33 @@ module Selene
   module ComponentRules
 
     def has_component_rules
-      @@property_rules = {}
+      @property_rules = {}
       include InstanceMethods
     end
 
     def property(name, rules = {})
-      @@property_rules[name] = rules
+      @property_rules[name] = rules
     end
 
     def property_rules
-      @@property_rules
+      @property_rules
+    end
+
+    def inherited(subclass)
+      subclass.instance_variable_set('@property_rules', @property_rules)
     end
 
     module InstanceMethods
-      def property_rules
-        self.class.property_rules
-      end
-
       def properties
-        property_rules.keys
+        self.class.property_rules.keys
       end
 
       def required?(property)
-        !!property_rules[property][:required]
+        !!self.class.property_rules[property][:required]
       end
 
       def multiple?(property)
-        !!property_rules[property][:multiple]
+        !!self.class.property_rules[property][:multiple]
       end
 
       def can_add?(property)

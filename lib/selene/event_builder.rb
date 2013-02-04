@@ -1,16 +1,15 @@
 module Selene
   class EventBuilder < ComponentBuilder
 
+    component 'vevent'
+
     # Property rules:
     #
     # If :required is truthy, a component is not valid without that property.
     # If :multiple is falsy, a component can only have one of that property
-    #
-    # TODO: Add optional properties so I can highlight custom x-prop and iana-prop properties
 
     property 'dtstamp', :required => true, :multiple => false
     property 'uid', :required => true, :multiple => false
-
     property 'dtstart', :multiple => false
     property 'class', :multiple => false
     property 'created', :multiple => false
@@ -39,8 +38,18 @@ module Selene
     # multi-day durations must be 'dur-day' or 'dur-week'
     # rule :multi_day_durations
 
-    # The dtstart property is required if the calendar does not have a method property
-    # rule :dtstart_required_if_no_calendar_method
+    # Optional properties
+
+    property 'attach'
+    property 'attendee'
+    property 'categories'
+    property 'comment'
+    property 'contact'
+    property 'exdate'
+    property 'rstatus'
+    property 'related'
+    property 'resources'
+    property 'rdate'
 
     def value(line)
       case line.name
@@ -56,6 +65,15 @@ module Selene
     def parent=(builder)
       raise Exception.new("Event components cannot be nested inside anything but a calendar component") unless builder.is_a?(CalendarBuilder)
       super(builder)
+    end
+
+    def can_add?(line)
+      if line.name == 'dtend' && contains_property?('duration')
+        error('dtend', "The 'dtend' property cannot be set if the 'duration' property already exists")
+      elsif line.name == 'duration' && contains_property?('dtend')
+        error('duration', "The 'duration' property cannot be set if the 'dtend' property already exists")
+      end
+      super(line)
     end
 
     def valid?

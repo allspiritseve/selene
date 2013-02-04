@@ -4,12 +4,16 @@ module Selene
 
     attr_accessor :component, :name, :parent, :errors
 
-    # component 'vevent'
-
-    has_component_rules
-
-    def initialize(name)
+    def self.component(name)
       @name = name
+      has_component_rules
+    end
+
+    def self.name
+      @name
+    end
+
+    def initialize
       @component = Hash.new { |component, property| component[property] = [] }
       @errors = Hash.new { |errors, property| errors[property] = [] }
     end
