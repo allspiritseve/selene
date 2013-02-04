@@ -1,8 +1,6 @@
 module Selene
   class EventBuilder < ComponentBuilder
 
-    component 'vevent'
-
     # Required properties
     property 'dtstamp', :required => true, :multiple => false
     property 'uid', :required => true, :multiple => false
@@ -11,44 +9,44 @@ module Selene
     property 'class', :multiple => false
     property 'created', :multiple => false
     property 'description', :multiple => false
+    property 'dtend', :multiple => false
     property 'dtstart', :multiple => false
+    property 'duration', :multiple => false
     property 'geo', :multiple => false
     property 'last-mod', :multiple => false
     property 'location', :multiple => false
     property 'organizer', :multiple => false
     property 'priority', :multiple => false
     property 'recurid', :mutiple => false
+    property 'rrule' # The rrule property should not occur more than once (but can if necessary)
     property 'seq', :multiple => false
     property 'status', :multiple => false
     property 'summary', :multiple => false
     property 'transp', :multiple => false
     property 'url', :multiple => false
-    property 'rrule' # The rrule property should not occur more than once (but can if necessary)
-    property 'dtend', :multiple => false
-    property 'duration', :multiple => false
     property 'attach'
     property 'attendee'
     property 'categories'
     property 'comment'
     property 'contact'
     property 'exdate'
-    property 'rstatus'
+    property 'rdate'
     property 'related'
     property 'related-to'
     property 'resources'
-    property 'rdate'
+    property 'rstatus'
 
     # Custom properties: x-prop, iana-prop
 
     # TODO: if dtstart is a date, dtend must be as well
     # TODO: multi-day durations must be 'dur-day' or 'dur-week'
 
-    def value(line)
-      case line.name
+    def value(property)
+      case property.name
       when 'dtstamp', 'dtstart', 'dtend'
-        line.value_with_params
+        property.value_with_params
       when 'geo'
-        line.values
+        property.values
       else
         super
       end
@@ -59,13 +57,13 @@ module Selene
       super(builder)
     end
 
-    def can_add?(line)
-      if line.name == 'dtend' && contains_property?('duration')
+    def can_add?(property)
+      if property.name == 'dtend' && contains_property?('duration')
         error('dtend', "The 'dtend' property cannot be set if the 'duration' property already exists")
-      elsif line.name == 'duration' && contains_property?('dtend')
+      elsif property.name == 'duration' && contains_property?('dtend')
         error('duration', "The 'duration' property cannot be set if the 'dtend' property already exists")
       end
-      super(line)
+      super(property)
     end
 
     def valid?

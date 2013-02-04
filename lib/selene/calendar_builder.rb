@@ -1,9 +1,13 @@
 module Selene
   class CalendarBuilder < ComponentBuilder
 
-    REQUIRED_PROPERTIES = %w(prodid version)
+    property 'prodid', :required => true, :multiple => false
+    property 'version', :required => true, :multiple => false
 
-    DISTINCT_PROPERTIES = %w(prodid version calscale method)
+    property 'calscale', :multiple => false
+    property 'method', :multiple => false
+
+    # Custom properties: x-prop, iana-prop
 
   end
 end

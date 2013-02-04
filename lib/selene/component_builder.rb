@@ -1,11 +1,7 @@
 module Selene
   # This is the base class for all component builders.
   #
-  # The component name is specified like this:
-  #
-  # component 'vcalendar'
-  #
-  # And then properties and property rules are specified like this:
+  # Properties are specified one per property with optional rules, e.g.:
   #
   # property 'version', :required => true, :multiple => false
   #
@@ -15,18 +11,13 @@ module Selene
   # Custom rules can be implemented by overriding can_add?(property) or valid?
   class ComponentBuilder
 
-    # Hash containing properties as keys and rules as values
     @property_rules = {}
 
     class << self
-      attr_accessor :name, :property_rules
+      attr_accessor :property_rules
     end
 
-    attr_accessor :component, :name, :parent, :errors
-
-    def self.component(name)
-      name = name
-    end
+    attr_accessor :component, :errors, :name, :parent
 
     def self.property(name, rules = {})
       property_rules[name] = rules
@@ -36,7 +27,8 @@ module Selene
       subclass.instance_variable_set('@property_rules', @property_rules)
     end
 
-    def initialize
+    def initialize(name)
+      @name = name
       @component = Hash.new { |component, property| component[property] = [] }
       @errors = Hash.new { |errors, property| errors[property] = [] }
     end
@@ -45,16 +37,16 @@ module Selene
       @component[name] << builder.component
     end
 
-    def parse(line)
-      @component[name(line)] = value(line) if can_add?(line)
+    def parse(property)
+      @component[name(property)] = value(property) if can_add?(property)
     end
 
-    def name(line)
-      line.name
+    def name(property)
+      property.name
     end
 
-    def value(line)
-      line.value
+    def value(property)
+      property.value
     end
 
     def contains_property?(property)

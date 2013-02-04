@@ -26,7 +26,7 @@ module Selene
     end
 
     def create_builder(name)
-      self.class.builders[name].new
+      (self.class.builders[name] || ComponentBuilder).new(name)
     end
 
     def parse(string)
