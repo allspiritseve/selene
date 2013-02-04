@@ -3,43 +3,29 @@ module Selene
 
     component 'vevent'
 
-    # Property rules:
-    #
-    # If :required is truthy, a component is not valid without that property.
-    # If :multiple is falsy, a component can only have one of that property
-
+    # Required properties
     property 'dtstamp', :required => true, :multiple => false
     property 'uid', :required => true, :multiple => false
-    property 'dtstart', :multiple => false
+
+    # Optional properties
     property 'class', :multiple => false
     property 'created', :multiple => false
     property 'description', :multiple => false
+    property 'dtstart', :multiple => false
     property 'geo', :multiple => false
     property 'last-mod', :multiple => false
     property 'location', :multiple => false
     property 'organizer', :multiple => false
     property 'priority', :multiple => false
+    property 'recurid', :mutiple => false
     property 'seq', :multiple => false
     property 'status', :multiple => false
     property 'summary', :multiple => false
     property 'transp', :multiple => false
     property 'url', :multiple => false
-    property 'recurid', :mutiple => false
-
-    # Both dtend and duration are optional, but they cannot both be specified for the same event
-    # rule :dtend_or_duration
-
-    # The rrule property should not occur more than once (but can if necessary)
-    property 'rrule'
-
-    # if dtstart is a date, dtend has to be too
-    # rule :dtstart_date_if_dtend_date
-
-    # multi-day durations must be 'dur-day' or 'dur-week'
-    # rule :multi_day_durations
-
-    # Optional properties
-
+    property 'rrule' # The rrule property should not occur more than once (but can if necessary)
+    property 'dtend', :multiple => false
+    property 'duration', :multiple => false
     property 'attach'
     property 'attendee'
     property 'categories'
@@ -48,8 +34,14 @@ module Selene
     property 'exdate'
     property 'rstatus'
     property 'related'
+    property 'related-to'
     property 'resources'
     property 'rdate'
+
+    # Custom properties: x-prop, iana-prop
+
+    # TODO: if dtstart is a date, dtend must be as well
+    # TODO: multi-day durations must be 'dur-day' or 'dur-week'
 
     def value(line)
       case line.name
