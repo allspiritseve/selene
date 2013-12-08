@@ -1,7 +1,8 @@
 require 'test_helper'
+require 'selene/line'
 
 module Selene
-  class LineTest < MiniTest::Unit::TestCase
+  class LineTest < MiniTest::Test
 
     def test_lines_are_unfolded_before_splitting
       assert_equal Line.split("TEST:This is a\r\n  test").first.value, "This is a test"
@@ -17,8 +18,8 @@ module Selene
     end
 
     def test_parses_params
-      assert_equal Line.parse('DTSTART;TZID=America/New_York:20130110T183000'),
-        Line.new('DTSTART', { 'tzid' => 'America/New_York' }, '20130110T183000')
+      assert_equal Line.new('DTSTART', { 'tzid' => 'America/New_York' }, '20130110T183000'),
+        Line.parse('DTSTART;TZID=America/New_York:20130110T183000')
     end
   end
 end

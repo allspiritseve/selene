@@ -2,7 +2,7 @@ require 'test_helper'
 require 'json'
 
 module Selene
-  class ParserTest < MiniTest::Unit::TestCase
+  class ParserTest < MiniTest::Test
     include FixtureHelper
 
     def test_parses_blank_string

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Selene
-  class CalendarBuilderTest < MiniTest::Unit::TestCase
+  class CalendarBuilderTest < MiniTest::Test
     include BuilderTestHelper
 
     def builder

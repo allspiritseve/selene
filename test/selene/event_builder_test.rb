@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Selene
-  class EventBuilderTest < MiniTest::Unit::TestCase
+  class EventBuilderTest < MiniTest::Test
     include BuilderTestHelper
 
     def builder

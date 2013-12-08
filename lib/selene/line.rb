@@ -42,9 +42,7 @@ module Selene
     end
 
     def initialize(name, params, value)
-      self.name = name.downcase
-      self.params = params || {}
-      self.value = value
+      super(name.downcase, params || {}, value)
     end
 
     def begin_component?
@@ -70,6 +68,5 @@ module Selene
     def values
       value.split(';')
     end
-
   end
 end

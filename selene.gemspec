@@ -18,6 +18,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_development_dependency 'debugger'
-  gem.add_development_dependency 'minitest-colorize'
+  gem.add_development_dependency 'minitest-reporters'
   gem.add_development_dependency 'rake'
 end

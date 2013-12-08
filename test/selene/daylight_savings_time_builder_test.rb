@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Selene
-  class DaylightSavingsTimeBuilderTest < MiniTest::Unit::TestCase
+  class DaylightSavingsTimeBuilderTest < MiniTest::Test
     include BuilderTestHelper
 
     def builder
