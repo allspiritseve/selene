@@ -72,6 +72,5 @@ module Selene
       end
       super
     end
-
   end
 end

@@ -63,6 +63,5 @@ module Selene
       builder.parse(Line.new('DURATION', {}, 'PT15M'))
       assert_error builder, 'duration', "The 'duration' property cannot be set if the 'dtend' property already exists"
     end
-
   end
 end

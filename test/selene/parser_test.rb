@@ -1,5 +1,6 @@
-require 'test_helper'
+require_relative '../helper'
 require 'json'
+require 'selene/parser'
 
 module Selene
   class ParserTest < MiniTest::Test

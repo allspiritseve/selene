@@ -52,6 +52,5 @@ module Selene
     def assert_error builder, property, message
       assert builder.errors[property].any? { |e| e =~ /#{message}/ }, "#{builder.class.name}: #{message}"
     end
-
   end
 end
