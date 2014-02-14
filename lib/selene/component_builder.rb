@@ -10,7 +10,6 @@ module Selene
   #
   # Custom rules can be implemented by overriding can_add?(property) or valid?
   class ComponentBuilder
-
     @property_rules = {}
 
     class << self
@@ -88,6 +87,5 @@ module Selene
       end
       @errors.empty?
     end
-
   end
 end

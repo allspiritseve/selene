@@ -42,9 +42,9 @@ module Selene
     end
 
     def assert_single builder, property
-      builder.parse(Line.new(property, {}, 'First Value'))
+      builder.parse(Line.new(property, 'First Value'))
       original_value = builder.component[property]
-      builder.parse(Line.new(property, {}, 'Second Value'))
+      builder.parse(Line.new(property, 'Second Value'))
       assert_error builder, property, "property '#{property}' must not occur more than once"
       assert_equal original_value, builder.component[property]
     end

@@ -1,5 +1,5 @@
 module Selene
-  class Line < Struct.new(:name, :params, :value)
+  class Line < Struct.new(:name, :value, :params)
 
     # Match everything until we hit ';' (parameter separator) or ':' (value separator)
     NAME = /(?<name>[^:\;]+)/
@@ -25,7 +25,7 @@ module Selene
     # Parse a content line into a line object
     def self.parse(content_line)
       content_line.match(/#{NAME}#{PARAMS}?:#{VALUE}/) do |match|
-        return new(match[:name], parse_params(match[:params]), match[:value])
+        return new(match[:name], match[:value], parse_params(match[:params]))
       end
     end
 
@@ -41,8 +41,8 @@ module Selene
       end
     end
 
-    def initialize(name, params, value)
-      super(name.downcase, params || {}, value)
+    def initialize(name, value, params = {})
+      super(name.downcase, value, params)
     end
 
     def begin_component?
@@ -58,7 +58,7 @@ module Selene
     end
 
     def params?
-      params && !params.empty?
+      !params.empty?
     end
 
     def value_with_params
