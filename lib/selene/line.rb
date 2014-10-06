@@ -25,7 +25,14 @@ module Selene
     # Parse a content line into a line object
     def self.parse(content_line)
       content_line.match(/#{NAME}#{PARAMS}?:#{VALUE}/) do |match|
-        return new(match[:name], match[:value], parse_params(match[:params]))
+        case match[:name]
+        when 'begin'
+          return BeginComponentLine.new(match[:value])
+        when 'end'
+          return EndComponentLine.new(match[:value])
+        else
+          return new(match[:name], match[:value], parse_params(match[:params]))
+        end
       end
     end
 
@@ -71,6 +78,18 @@ module Selene
 
     def values
       value.split(';')
+    end
+  end
+
+  class BeginComponentLine < Line
+    def initialize(name)
+      super(name.downcase, Component.new)
+    end
+  end
+
+  class EndComponentLine < Line
+    def initialize(name)
+      super(name.downcase, nil)
     end
   end
 end

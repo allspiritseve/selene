@@ -12,14 +12,14 @@ require 'selene/time_zone_builder'
 module Selene
   class Parser
     def parse(string)
-      feed = FeedBuilder.new
-      stack = [feed]
+      errors = Hash.new { |h, k| h[k] = [] }
+      builder = FeedBuilder.new
       Line.split(string).each do |line|
-        if line.begin_component?
-          builder = create_builder(line.component_name)
-          stack[-1].add(line.component_name, builder)
-          stack << builder
-        elsif line.end_component?
+        case line
+        when BeginComponentLine
+          stack << create_builder(line, errors)
+          stack[-1].parse(line)
+        when EndComponentLine
           stack.pop
         else
           stack[-1].parse(line)
@@ -30,8 +30,12 @@ module Selene
 
     private
 
-    def create_builder(name)
-      builder_class(name).new(name)
+    def create_builder(line, errors)
+      builder_class(line.name).new(line.value, errors)
+    end
+
+    def create_component(line)
+      Component.new
     end
 
     def builder_class(name)

@@ -16,7 +16,7 @@ module Selene
       attr_accessor :property_rules
     end
 
-    attr_accessor :component, :errors, :name, :parent
+    attr_reader :component, :stack, :errors, :name, :parent
 
     def self.property(name, rules = {})
       property_rules[name] = rules
@@ -26,26 +26,26 @@ module Selene
       subclass.instance_variable_set('@property_rules', @property_rules)
     end
 
-    def initialize(name)
-      @name = name
-      @component = Hash.new { |component, property| component[property] = [] }
-      @errors = Hash.new { |errors, property| errors[property] = [] }
+    def initialize(component, stack, errors)
+      @component = component
+      @stack = stack << self
+      @errors = errors
     end
 
-    def add(name, builder)
-      @component[name] << builder.component
+    def parse(line)
+      @component[property_name(line)] = property_value(line) if can_add_property?(line)
     end
 
-    def parse(property)
-      @component[name(property)] = value(property) if can_add?(property)
+    def property_name(line)
+      line.name
     end
 
-    def name(property)
-      property.name
+    def component_name(line)
+      line.name.downcase
     end
 
-    def value(property)
-      property.value
+    def property_value(line)
+      line.value
     end
 
     def contains_property?(property)
@@ -72,7 +72,7 @@ module Selene
       self.class.property_rules[property][:multiple]
     end
 
-    def can_add?(property)
+    def can_add_property?(line)
       if contains_property?(property.name) && !multiple?(property.name)
         error(property.name, "property '%s' must not occur more than once" % property.name)
       end
