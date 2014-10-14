@@ -1,4 +1,4 @@
-require_relative '../helper'
+require_relative '../test_helper'
 require 'json'
 require 'selene/parser'
 
@@ -7,22 +7,22 @@ module Selene
     include FixtureHelper
 
     def test_parses_blank_string
-      assert_equal Parser.new.parse(""), {}
+      assert_equal Parser.parse(""), {}
     end
 
     def test_parses_simple_calendar
-      assert_equal Parser.new.parse("BEGIN:VCALENDAR\r\nSUMMARY:Meetups\r\nEND:VCALENDAR"),
+      assert_equal Parser.parse("BEGIN:VCALENDAR\r\nSUMMARY:Meetups\r\nEND:VCALENDAR"),
         { 'vcalendar' => [{ 'summary' => 'Meetups' }] }
     end
 
     def test_parses_meetup_calendar
-      assert_equal Parser.new.parse(fixture('meetup.ics')),
+      assert_equal Parser.parse(fixture('meetup.ics')),
         JSON.parse(fixture('meetup.json'))
     end
 
     def test_contain_error
       skip
-      ical = Parser.new.parse("BEGIN:VEVENT\r\nEND:VEVENT")
+      ical = Parser.parse("BEGIN:VEVENT\r\nEND:VEVENT")
       assert ical['errors'].any? { |e| e.include? "can't contain" }, "Feed can't contain a vevent"
     end
   end

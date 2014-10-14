@@ -2,28 +2,28 @@ module Selene
   class EventBuilder < ComponentBuilder
 
     # Required properties
-    property 'dtstamp', :required => true, :multiple => false
-    property 'uid', :required => true, :multiple => false
+    property 'dtstamp', required: true, multiple: false
+    property 'uid', required: true, multiple: false
 
     # Optional properties
-    property 'class', :multiple => false
-    property 'created', :multiple => false
-    property 'description', :multiple => false
-    property 'dtend', :multiple => false
-    property 'dtstart', :multiple => false
-    property 'duration', :multiple => false
-    property 'geo', :multiple => false
-    property 'last-mod', :multiple => false
-    property 'location', :multiple => false
-    property 'organizer', :multiple => false
-    property 'priority', :multiple => false
-    property 'recurid', :mutiple => false
+    property 'class', multiple: false
+    property 'created', multiple: false
+    property 'description', multiple: false
+    property 'dtend', multiple: false
+    property 'dtstart', multiple: false
+    property 'duration', multiple: false
+    property 'geo', multiple: false
+    property 'last-mod', multiple: false
+    property 'location', multiple: false
+    property 'organizer', multiple: false
+    property 'priority', multiple: false
+    property 'recurid', multiple: false
     property 'rrule' # The rrule property should not occur more than once (but can if necessary)
-    property 'seq', :multiple => false
-    property 'status', :multiple => false
-    property 'summary', :multiple => false
-    property 'transp', :multiple => false
-    property 'url', :multiple => false
+    property 'seq', multiple: false
+    property 'status', multiple: false
+    property 'summary', multiple: false
+    property 'transp', multiple: false
+    property 'url', multiple: false
     property 'attach'
     property 'attendee'
     property 'categories'

@@ -1,11 +1,10 @@
 require 'bundler/setup'
-require 'debugger'
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'minitest/mock'
 require 'selene'
 
-Minitest::Reporters.use!
+Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 
 module Selene
   module Stubbable

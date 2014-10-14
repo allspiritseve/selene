@@ -1,5 +1,4 @@
 require 'bundler/gem_tasks'
-require 'debugger'
 require 'json'
 require 'pp'
 require 'rake/testtask'

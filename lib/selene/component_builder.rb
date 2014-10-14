@@ -10,6 +10,8 @@ module Selene
   #
   # Custom rules can be implemented by overriding can_add?(property) or valid?
   class ComponentBuilder
+    class ParseError < StandardError; end
+
     @property_rules = {}
 
     class << self
@@ -37,7 +39,14 @@ module Selene
     end
 
     def parse(property)
-      @component[name(property)] = value(property) if can_add?(property)
+      case property
+      when Line
+        @component[name(property)] = value(property) if can_add?(property)
+      when String
+        Line.split(property).each { |line| parse(line) }
+      else
+        raise ParseError, "Cannot parse argument of type #{property.class}"
+      end
     end
 
     def name(property)
