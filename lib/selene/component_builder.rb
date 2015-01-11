@@ -38,15 +38,41 @@ module Selene
       @component[name] << builder.component
     end
 
-    def parse(property)
-      case property
-      when Line
-        @component[name(property)] = value(property) if can_add?(property)
-      when String
-        Line.split(property).each { |line| parse(line) }
-      else
-        raise ParseError, "Cannot parse argument of type #{property.class}"
+    def parse(*properties)
+      properties.each do
+        case property
+        when Line
+          @component[name(property)] = value(property) if can_add?(property)
+        when String
+          Line.split(property).each { |line| parse(line) }
+        else
+          raise ParseError, "Cannot parse argument of type #{property.class}"
+        end
       end
+    end
+
+    def to_ical(component)
+      lines = []
+      component.each_pair do |key, value|
+        keys = []
+        values = []
+        keys << key.upcase
+        case value
+        when Array
+          value[1].each_pair do |pkey, pvalue|
+            keys << [pkey.upcase, pvalue].join('=')
+          end
+          values << value[0]
+        when Hash
+          value.each_pair do |vkey, vvalue|
+            values << [vkey.upcase, vvalue].join('=')
+          end
+        end
+
+        lines << [keys.join(';'), values.join(';')].join(':')
+      end
+
+      lines.join("\n")
     end
 
     def name(property)
