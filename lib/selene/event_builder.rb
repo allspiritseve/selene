@@ -47,6 +47,8 @@ module Selene
         property.value_with_params
       when 'geo'
         property.values
+      when 'rrule'
+        property.rrule
       else
         super
       end
