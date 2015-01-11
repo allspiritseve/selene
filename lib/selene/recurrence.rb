@@ -6,9 +6,11 @@ module Selene
     def initialize(options = {})
       rule.start_time = options.fetch(:dtstart)
       rule.frequency = options.fetch(:frequency)
+      rule.count = options.fetch(:count, Float::INFINITY)
+      rule.interval = options.fetch(:interval, 1)
       rule.end_time = options.fetch(:dtend, nil)
       rule.duration = options.fetch(:duration, nil)
-      rule.count = options.fetch(:count, Float::INFINITY)
+      rule.until = options.fetch(:until, nil)
 
       if rule.end_time
         rule.duration = rule.end_time - rule.start_time
@@ -23,12 +25,12 @@ module Selene
 
     def occurrences
       Enumerator.new do |yielder|
-        0.upto(rule.count).inject(LocalTime.from_time(rule.start_time)) do |local_start_time, n|
-          break if n >= rule.count
+        0.upto(rule.count).inject(LocalTime.from_time(rule.start_time)) do |local_time, n|
+          break if n > rule.count - 1
+          break if local_time.to_time > rule.until if rule.until
+          yielder << local_time.to_time
           part = frequency_to_part(rule.frequency)
-          next_local_time = local_start_time.add(n > 0 ? 1 : 0, part)
-          yielder << next_local_time.to_time
-          next_local_time
+          local_time.add(rule.interval, part)
         end
       end
     end

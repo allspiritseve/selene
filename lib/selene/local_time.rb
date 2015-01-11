@@ -25,6 +25,40 @@ class LocalTime < Struct.new(:year, :month, :day, :hour, :min, :sec)
     end
   end
 
+  def self.num_in_range(num, range)
+    if range.cover?(num)
+      num
+    elsif num > range.max
+      range.max
+    else
+      range.min
+    end
+  end
+
+  def self.num_modulo_range(num, range)
+    if range.cover?(num)
+      0
+    elsif num > range.max
+      num - range.max
+    else
+      num - range.min
+    end
+  end
+
+  def self.num_cycle_range(num, range)
+    ((num + range.max) - range.min) % range.max + range.min
+  end
+
+  def self.num_cycle_offset_range(num, range)
+    if range.cover?(num)
+      0
+    elsif num > range.max
+      num / range.max
+    else
+      (num - 1) / range.max
+    end
+  end
+
   def initialize(*parts)
     super(*0.upto(5).map { |n| parts.fetch(n, 0) })
   end
@@ -49,15 +83,31 @@ class LocalTime < Struct.new(:year, :month, :day, :hour, :min, :sec)
   end
 
   def to_time
-    Time.new(year + (month / 12), month % 12, day % 31, hour % 24, min % 60, sec % 60) +
-      in_seconds(day / 31, :days) +
-      in_seconds(hour / 24, :hours) +
-      in_seconds(min / 60, :minutes) +
-      in_seconds(sec / 60, :seconds)
+    Time.new(year + num_cycle_offset_range(month, 1..12), num_cycle_range(month, 1..12), num_in_range(day, 1..31), num_in_range(hour, 1..24), num_in_range(min, 1..60), num_in_range(sec, 1..60)) +
+      in_seconds(num_modulo_range(day, 1..31), :days) +
+      in_seconds(num_modulo_range(hour, 1..24), :hours) +
+      in_seconds(num_modulo_range(min, 1..60), :minutes) +
+      in_seconds(num_modulo_range(sec, 1..60), :seconds)
   end
 
   def in_seconds(num, part)
     self.class.in_seconds(num, part)
+  end
+
+  def num_in_range(num, range)
+    self.class.num_in_range(num, range)
+  end
+
+  def num_modulo_range(num, range)
+    self.class.num_modulo_range(num, range)
+  end
+
+  def num_cycle_range(num, range)
+    self.class.num_cycle_range(num, range)
+  end
+
+  def num_cycle_offset_range(num, range)
+    self.class.num_cycle_offset_range(num, range)
   end
 
   def validate_part(part)
