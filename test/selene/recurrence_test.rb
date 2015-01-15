@@ -107,6 +107,19 @@ module Selene
       assert_equal 3, recurrence.occurrences.count
     end
 
+    # DTSTART;TZID=America/Detroit:20110611T170000
+    # RRULE:FREQ=MONTHLY;BYDAY=MO
+    def test_can_calculate_by_day
+      recurrence = Recurrence.new(dtstart: @start, until: @end, by_day: ['MO'])
+
+      assert_occurrences recurrence,
+        '2011-06-13 17:00:00',
+        '2011-06-20 17:00:00',
+        '2011-06-27 17:00:00'
+
+      assert_equal 3, recurrence.occurrences.count
+    end
+
     private
     def assert_occurrences(recurrence, *expected_occurrences)
       recurrence.occurrences.take(expected_occurrences.count).each_with_index do |occurrence, index|

@@ -17,6 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
+  gem.add_dependency 'tzinfo'
+
   gem.add_development_dependency 'byebug'
   gem.add_development_dependency 'minitest-reporters'
   gem.add_development_dependency 'rake'

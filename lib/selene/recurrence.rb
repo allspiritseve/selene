@@ -1,5 +1,5 @@
 require 'ostruct'
-require 'selene/local_time'
+require 'selene/time_value'
 
 module Selene
   class Recurrence
@@ -25,20 +25,39 @@ module Selene
 
     def occurrences
       Enumerator.new do |yielder|
-        0.upto(rule.count).inject(LocalTime.from_time(rule.start_time)) do |local_time, n|
-          break if n > rule.count - 1
-          break if local_time.to_time > rule.until if rule.until
-          yielder << local_time.to_time
+        1.upto(rule.count).inject(TimeValue.new(rule.start_time)) do |start_time, n|
+          break if n > rule.count
+          break if start_time.time > rule.until if rule.until
+          yielder << start_time.time
           part = frequency_to_part(rule.frequency)
-          local_time.add(rule.interval, part)
+          start_time.add(rule.interval, part)
         end
       end
     end
 
+    def add_time(time, interval, part)
+      case part
+      when :year then months_in_days(interval * 12, time)
+      end
+    end
+
+    def add_years(time, years)
+      time + months_to_days(time, years * 12)
+    end
+
+    def add_months(time, months)
+      time + months_to_days(time, months)
+    end
+
+    def months_to_days(time, months)
+      date = Date.new(time.year, time.month, time.day)
+      (date >> months) - date
+    end
+
     def frequency_to_part(frequency)
       case frequency.to_sym
-      when :secondly then :sec
-      when :minutely then :min
+      when :secondly then :second
+      when :minutely then :minute
       when :hourly then :hour
       when :daily then :day
       when :weekly then :week
