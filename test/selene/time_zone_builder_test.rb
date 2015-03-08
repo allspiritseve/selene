@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Selene
-  class TimeZoneBuilderTest < MiniTest::Unit::TestCase
+  class TimeZoneBuilderTest < MiniTest::Test
 
     def builder
       @builder ||= TimeZoneBuilder.new

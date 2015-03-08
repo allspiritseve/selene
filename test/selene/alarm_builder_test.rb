@@ -1,20 +1,17 @@
 require 'test_helper'
 
 module Selene
-  class AlarmBuilderTest < MiniTest::Unit::TestCase
+  class AlarmBuilderTest < MiniTest::Test
     include BuilderTestHelper
 
-    def setup
-    end
-
-    def builder
-      @builder ||= AlarmBuilder.new
-    end
-
     def test_parses_action
-      parse_line 'ACTION', {}, 'AUDIO'
+      builder.parse(Line.new('ACTION', 'AUDIO'))
       assert_equal builder.component['action'], 'AUDIO'
     end
 
+    private
+    def builder
+      @builder ||= AlarmBuilder.new
+    end
   end
 end
