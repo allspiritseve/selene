@@ -11,23 +11,23 @@ module Selene
       self.duration = options.fetch(:duration, nil)
       self.count = options.fetch(:count, Float::INFINITY)
 
+
       if end_time
-        self.duration = end_time - start_time
+        self.schedule = IceCube::Schedule.new(start_time, end_time: end_time)
       elsif duration
-        self.end_time = start_time + duration
+        self.schedule = IceCube::Schedule.new(start_time, duration: duration)
       end
 
       yield self if block_given?
     end
 
-    def occurrences
-      Enumerator.new do |yielder|
-        1.upto(count).inject(start_time) do |start, n|
-          next_time = start + 60 * 60
-          yielder << next_time
-          next_time
-        end
-      end
+    private
+    def schedule
+      @schedule
+    end
+
+    def schedule=(new_schedule)
+      @schedule = new_schedule
     end
   end
 end

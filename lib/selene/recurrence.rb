@@ -3,6 +3,7 @@ require 'selene/time_value'
 
 module Selene
   class Recurrence
+    DAYS = %w(MO TU WE TH FR SA SU)
     def initialize(options = {})
       rule.start_time = options.fetch(:dtstart)
       rule.frequency = options.fetch(:frequency)
@@ -11,6 +12,7 @@ module Selene
       rule.end_time = options.fetch(:dtend, nil)
       rule.duration = options.fetch(:duration, nil)
       rule.until = options.fetch(:until, nil)
+      rule.by_day = options.fetch(:by_day, []).map { |day| DAYS.index(day) + 1 }
 
       if rule.end_time
         rule.duration = rule.end_time - rule.start_time
@@ -25,12 +27,19 @@ module Selene
 
     def occurrences
       Enumerator.new do |yielder|
-        1.upto(rule.count).inject(TimeValue.new(rule.start_time)) do |start_time, n|
+        1.upto(rule.count).inject(rule.start_time) do |start_time, n|
           break if n > rule.count
-          break if start_time.time > rule.until if rule.until
-          yielder << start_time.time
+          break if start_time > rule.until if rule.until
+          yielder << start_time
+          if rule.by_day
+            rule.by_day.each do |day|
+              wday = start_time.time.wday
+              offset = 7 + day - wday
+              next_time = TimeValue.new(start_time).add(offset, :days)
+            end
+          end
           part = frequency_to_part(rule.frequency)
-          start_time.add(rule.interval, part)
+          TimeValue.new(start_time).add(rule.interval, part)
         end
       end
     end

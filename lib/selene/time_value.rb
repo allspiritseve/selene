@@ -16,7 +16,7 @@ class TimeValue
   end
 
   def add(num, part)
-    self.class.new(time + in_seconds(num, part))
+    time + in_seconds(num, part)
   end
 
   def subtract(num, type)

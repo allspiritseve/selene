@@ -20,6 +20,10 @@ module Selene
 
     attr_accessor :component, :errors, :name, :parent
 
+    def self.parse(component, *items)
+      new(component).parse(*items)
+    end
+
     def self.property(name, rules = {})
       property_rules[name] = rules
     end
@@ -28,9 +32,9 @@ module Selene
       subclass.instance_variable_set('@property_rules', @property_rules)
     end
 
-    def initialize(name)
+    def initialize(name, component = nil)
       @name = name
-      @component = Hash.new { |component, property| component[property] = [] }
+      @component = component || Hash.new { |component, property| component[property] = [] }
       @errors = Hash.new { |errors, property| errors[property] = [] }
     end
 
@@ -38,20 +42,25 @@ module Selene
       @component[name] << builder.component
     end
 
-    def parse(*properties)
-      properties.each do
-        case property
-        when Line
-          @component[name(property)] = value(property) if can_add?(property)
-        when String
-          Line.split(property).each { |line| parse(line) }
+    def parse(*items)
+      self.component = items.inject(self.component) do |component, item|
+        if item.is_a?(Line)
+          parse_line(component, item)
         else
-          raise ParseError, "Cannot parse argument of type #{property.class}"
+          Line.split(item).inject(component, &method(:parse_line))
         end
       end
     end
 
-    def to_ical(component)
+    def parse_line(component, line)
+      if can_add?(line)
+        component.merge(name(line) => value(line))
+      else
+        component
+      end
+    end
+
+    def self.to_ical(component)
       lines = []
       component.each_pair do |key, value|
         keys = []
