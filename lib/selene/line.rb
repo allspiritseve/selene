@@ -65,12 +65,16 @@ module Selene
       params? ? [value, params] : value
     end
 
+    def values_with_params
+      params? ? [values, params] : values
+    end
+
     def rrule
       Hash[values.map { |values| k, v = values.split('=', 2); [k.downcase, v] }]
     end
 
     def values
-      value.split(';')
+      value.split(/[;,]/)
     end
   end
 end

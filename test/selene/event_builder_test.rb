@@ -63,5 +63,11 @@ module Selene
       builder.parse(Line.new('DURATION', {}, 'PT15M'))
       assert_error builder, 'duration', "The 'duration' property cannot be set if the 'dtend' property already exists"
     end
+
+    def test_exdate
+      builder = EventBuilder.new('vevent')
+      builder.parse("EXDATE;VALUE=DATE-TIME;TZID=America/Detroit:19960402T010000,19960403T010000,19960404T010000")
+      assert_equal builder.component['exdate'], [['19960402T010000','19960403T010000','19960404T010000'], { 'value' => 'DATE-TIME', 'tzid' => 'America/Detroit' }]
+    end
   end
 end
