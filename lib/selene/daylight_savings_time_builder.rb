@@ -1,5 +1,8 @@
 module Selene
   class DaylightSavingsTimeBuilder < ComponentBuilder
+    def initialize
+      super('daylight')
+    end
 
     def value(line)
       case line.name
@@ -9,6 +12,5 @@ module Selene
         super
       end
     end
-
   end
 end

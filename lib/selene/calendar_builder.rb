@@ -1,9 +1,15 @@
 module Selene
   class CalendarBuilder < ComponentBuilder
+    property 'prodid', required: true, :multiple => false
+    property 'version', :required => true, :multiple => false
 
-    REQUIRED_PROPERTIES = %w(prodid version)
+    property 'calscale', :multiple => false
+    property 'method', :multiple => false
 
-    DISTINCT_PROPERTIES = %w(prodid version calscale method)
+    # Custom properties: x-prop, iana-prop
 
+    def initialize
+      super('vcalendar')
+    end
   end
 end

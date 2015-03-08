@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Selene
-  class DaylightSavingsTimeBuilderTest < MiniTest::Unit::TestCase
+  class DaylightSavingsTimeBuilderTest < MiniTest::Test
     include BuilderTestHelper
 
     def builder
@@ -9,9 +9,8 @@ module Selene
     end
 
     def test_parses_rrule
-      parse_line('RRULE', '', 'FREQ=YEARLY;BYMONTH=3;BYDAY=2SU')
-      assert_equal builder.component['rrule'], { 'freq' => 'YEARLY', 'bymonth' => '3', 'byday' => '2SU' }
+      builder.parse(Line.new('RRULE', 'FREQ=YEARLY;BYMONTH=3;BYDAY=2SU'))
+      assert_equal({ 'freq' => 'YEARLY', 'bymonth' => '3', 'byday' => '2SU' }, builder.component['rrule'])
     end
-
   end
 end
