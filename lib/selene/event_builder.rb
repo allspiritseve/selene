@@ -45,10 +45,13 @@ module Selene
       new('vevent', component).update_properties(properties)
     end
 
+    def initialize
+      super('vevent')
+    end
+
     def update_properties(properties)
       properties.inject(self.component) do |component, (name, value)|
         component = update_property(component, name, value)
-        pp component
         component
       end
     end

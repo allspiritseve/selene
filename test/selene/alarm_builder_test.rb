@@ -11,7 +11,7 @@ module Selene
 
     private
     def builder
-      @builder ||= AlarmBuilder.new('valarm')
+      @builder ||= AlarmBuilder.new
     end
   end
 end

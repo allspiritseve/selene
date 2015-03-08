@@ -7,5 +7,9 @@ module Selene
     property 'method', :multiple => false
 
     # Custom properties: x-prop, iana-prop
+
+    def initialize
+      super('vcalendar')
+    end
   end
 end

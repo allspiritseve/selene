@@ -5,7 +5,7 @@ module Selene
     include BuilderTestHelper
 
     def builder
-      @builder ||= DaylightSavingsTimeBuilder.new('daylight')
+      @builder ||= DaylightSavingsTimeBuilder.new
     end
 
     def test_parses_rrule

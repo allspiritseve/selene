@@ -39,18 +39,14 @@ module Selene
     private
 
     def create_builder(name)
-      builder_class(name).new(name)
-    end
-
-    def builder_class(name)
       case name
-      when 'vcalendar' then CalendarBuilder
-      when 'vtimezone' then TimeZoneBuilder
-      when 'daylight' then DaylightSavingsTimeBuilder
-      when 'standard' then StandardTimeBuilder
-      when 'vevent' then EventBuilder
-      when 'valarm' then AlarmBuilder
-      else ComponentBuilder
+      when 'daylight' then DaylightSavingsTimeBuilder.new
+      when 'standard' then StandardTimeBuilder.new
+      when 'valarm' then AlarmBuilder.new
+      when 'vcalendar' then CalendarBuilder.new
+      when 'vevent' then EventBuilder.new
+      when 'vtimezone' then TimeZoneBuilder.new
+      else ComponentBuilder.new(name)
       end
     end
   end
