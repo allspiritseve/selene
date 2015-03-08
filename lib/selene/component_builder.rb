@@ -30,8 +30,8 @@ module Selene
 
     def initialize(name)
       @name = name
-      @component = Hash.new { |component, property| component[property] = [] }
-      @errors = Hash.new { |errors, property| errors[property] = [] }
+      @component = Hash.new([])
+      @errors = Hash.new([])
     end
 
     def add(name, builder)

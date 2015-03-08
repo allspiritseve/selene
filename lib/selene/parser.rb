@@ -3,9 +3,9 @@ require 'selene/line'
 require 'selene/component_builder'
 require 'selene/alarm_builder'
 require 'selene/calendar_builder'
-require 'selene/feed_builder'
 require 'selene/daylight_savings_time_builder'
 require 'selene/event_builder'
+require 'selene/feed_builder'
 require 'selene/standard_time_builder'
 require 'selene/time_zone_builder'
 
@@ -35,8 +35,6 @@ module Selene
       end
       feed.component
     end
-
-    private
 
     def create_builder(name)
       case name
