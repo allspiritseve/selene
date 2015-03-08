@@ -41,10 +41,33 @@ module Selene
     # TODO: if dtstart is a date, dtend must be as well
     # TODO: multi-day durations must be 'dur-day' or 'dur-week'
 
+    def self.update(component, properties)
+      new('vevent', component).update_properties(properties)
+    end
+
+    def update_properties(properties)
+      properties.inject(self.component) do |component, (name, value)|
+        component = update_property(component, name, value)
+        pp component
+        component
+      end
+    end
+
+    def update_property(component, name, value)
+      case name
+      when 'dtstart'
+        component.merge('dtstart' => [value.strftime('%Y%m%dT%H%M%S'), component['dtstart'][1]])
+      else
+        component
+      end
+    end
+
     def value(property)
       case property.name
       when 'dtstamp', 'dtstart', 'dtend'
         property.value_with_params
+      when 'exdate'
+        property.values_with_params
       when 'geo'
         property.values
       when 'rrule'

@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'tzinfo'
+  gem.add_dependency 'ice_cube'
 
   gem.add_development_dependency 'byebug'
   gem.add_development_dependency 'minitest-reporters'

@@ -11,15 +11,6 @@ require 'selene/time_zone_builder'
 
 module Selene
   class Parser
-    BUILDER_CLASSES = {
-      'vcalendar' => CalendarBuilder,
-      'vtimezone' => TimeZoneBuilder,
-      'daylight' => DaylightSavingsTimeBuilder,
-      'standard' => StandardTimeBuilder,
-      'vevent' => EventBuilder,
-      'valarm' => AlarmBuilder,
-    }
-
     def self.parse(string)
       new(string).parse
     end
@@ -30,28 +21,37 @@ module Selene
 
     def parse
       feed = FeedBuilder.new
-      Line.split(@string).inject([feed]) do |stack, line|
+      stack = [feed]
+      Line.split(@string).each do |line|
         if line.begin_component?
           builder = create_builder(line.component_name)
           stack[-1].add(line.component_name, builder)
-          stack + [builder]
+          stack << builder
         elsif line.end_component?
-          stack - [stack[-1]]
+          stack.pop
         else
           stack[-1].parse(line)
-          stack
         end
       end
       feed.component
     end
 
     private
-    def create_builder(component_name)
-      builder_class(component_name).new(component_name)
+
+    def create_builder(name)
+      builder_class(name).new(name)
     end
 
-    def builder_class(component_name)
-      BUILDER_CLASSES.fetch(component_name, ComponentBuilder)
+    def builder_class(name)
+      case name
+      when 'vcalendar' then CalendarBuilder
+      when 'vtimezone' then TimeZoneBuilder
+      when 'daylight' then DaylightSavingsTimeBuilder
+      when 'standard' then StandardTimeBuilder
+      when 'vevent' then EventBuilder
+      when 'valarm' then AlarmBuilder
+      else ComponentBuilder
+      end
     end
   end
 end

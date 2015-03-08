@@ -59,10 +59,14 @@ module Selene
         keys << key.upcase
         case value
         when Array
-          value[1].each_pair do |pkey, pvalue|
-            keys << [pkey.upcase, pvalue].join('=')
+          if value[1].is_a?(Hash)
+            value[1].each_pair do |pkey, pvalue|
+              keys << [pkey.upcase, pvalue].join('=')
+            end
+            values << value[0]
+          else
+            values += value
           end
-          values << value[0]
         when Hash
           value.each_pair do |vkey, vvalue|
             values << [vkey.upcase, vvalue].join('=')
