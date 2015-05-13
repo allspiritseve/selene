@@ -17,15 +17,19 @@ module Selene
     PARAM_KEY_VALUE = /(?<key>[^=]+)=(?<value>.*)/
 
     # Split a string into content lines
-    def self.split(string)
-      delimiter = string.scan(/\r\n?|\n/).first || "\r\n"
-      string.gsub(/#{delimiter}\s/, '').split(delimiter).map { |line| parse(line) }
+    def self.split(string, &block)
+      separator = string.match(/\r\n|\r|\n/, &:to_s) || "\r\n"
+      string.gsub("#{separator}\s", '').split(separator).map do |line_string|
+        parse(line_string).tap do |line|
+          block.call(line) if line && block
+        end
+      end
     end
 
-    # Parse a content line into a line object
-    def self.parse(content_line)
-      content_line.match(/#{NAME}#{PARAMS}?:#{VALUE}/) do |match|
-        return new(match[:name], match[:value], parse_params(match[:params]))
+    # convert line string into line object
+    def self.parse(line_string)
+      line_string.match(/#{NAME}#{PARAMS}?:#{VALUE}/) do |match|
+        new(match[:name], match[:value], parse_params(match[:params]))
       end
     end
 

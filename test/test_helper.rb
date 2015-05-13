@@ -1,7 +1,8 @@
 require 'bundler/setup'
+require 'byebug'
 require 'minitest/autorun'
-require 'minitest/reporters'
 require 'minitest/mock'
+require 'minitest/reporters'
 require 'selene'
 
 Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
@@ -34,9 +35,7 @@ module Selene
   end
 
   module BuilderTestHelper
-
     def assert_required builder, property
-      builder.valid?
       assert_error builder, property, "missing required property '#{property}'"
     end
 
@@ -49,6 +48,7 @@ module Selene
     end
 
     def assert_error builder, property, message
+      builder.valid?
       assert builder.errors[property].any? { |e| e =~ /#{message}/ }, "#{builder.class.name}: #{message}"
     end
   end

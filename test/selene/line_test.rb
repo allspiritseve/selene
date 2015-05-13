@@ -17,8 +17,8 @@ module Selene
     end
 
     def test_parses_params
-      assert_equal Line.parse('DTSTART;TZID=America/New_York:20130110T183000'),
-        Line.new('DTSTART', '20130110T183000', 'tzid' => 'America/New_York')
+      assert_equal Line.new('DTSTART', '20130110T183000', 'tzid' => 'America/New_York'),
+        Line.parse('DTSTART;TZID=America/New_York:20130110T183000')
     end
   end
 end

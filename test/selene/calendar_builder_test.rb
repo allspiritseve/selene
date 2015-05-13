@@ -20,7 +20,7 @@ module Selene
       assert_equal builder.component['vtimezone'].first, { 'tzid' => 'America/Detroit' }
     end
 
-    # Test properties with :required => true
+    # Test properties with required: true
     %w(prodid version).each do |property|
       define_method "test_#{property}_required" do
         assert_required(CalendarBuilder.new, property)
@@ -33,6 +33,5 @@ module Selene
         assert_single(CalendarBuilder.new, property)
       end
     end
-
   end
 end

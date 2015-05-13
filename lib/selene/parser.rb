@@ -11,18 +11,18 @@ require 'selene/time_zone_builder'
 
 module Selene
   class Parser
-    def self.parse(string)
-      new(string).parse
+    def self.parse(data)
+      new(data).parse
     end
 
-    def initialize(string)
-      @string = string
+    def initialize(data)
+      @data = data
     end
 
     def parse
       feed = FeedBuilder.new
       stack = [feed]
-      Line.split(@string).each do |line|
+      Line.split(@data) do |line|
         if line.begin_component?
           builder = create_builder(line.component_name)
           stack[-1].add(line.component_name, builder)

@@ -86,16 +86,16 @@ module Selene
     end
 
     def can_add?(property)
-      if property.name == 'dtend' && contains_property?('duration')
+      if property.name == 'dtend' && contains?('duration')
         error('dtend', "The 'dtend' property cannot be set if the 'duration' property already exists")
-      elsif property.name == 'duration' && contains_property?('dtend')
+      elsif property.name == 'duration' && contains?('dtend')
         error('duration', "The 'duration' property cannot be set if the 'dtend' property already exists")
       end
       super(property)
     end
 
     def valid?
-      if !contains_property?('dtstart') && !parent.contains_property?('method')
+      if !contains?('dtstart') && parent && !parent.contains?('method')
         error('dtstart', "The 'dtstart' property is required if the calendar does not have a 'method' property")
       end
       super
