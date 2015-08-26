@@ -49,7 +49,14 @@ module Selene
 
     def assert_error builder, property, message
       builder.valid?
-      assert builder.errors[property].any? { |e| e =~ /#{message}/ }, "#{builder.class.name}: #{message}"
+      assert builder.component['_errors'].any? { |e| e[:message] =~ /#{message}/ }, "#{builder.class.name}: #{message}"
     end
+  end
+end
+
+class MiniTest::Test
+  def assert_collection_match(collection, regex, msg = nil)
+    flunk "Expected #{collection} to respond to :any?" unless collection.respond_to?(:any?)
+    assert collection.any? { |item| item =~ regex }, msg || "Expected one of #{collection.inspect} to match #{regex.inspect}"
   end
 end

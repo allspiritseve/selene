@@ -19,9 +19,8 @@ module Selene
     end
 
     def test_contain_error
-      skip
       ical = Parser.parse("BEGIN:VEVENT\r\nEND:VEVENT")
-      assert ical['errors'].any? { |e| e.include? "can't contain" }, "Feed can't contain a vevent"
+      assert_collection_match ical['_errors'].map { |error| error[:message] }, /can't contain/
     end
   end
 end

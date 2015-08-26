@@ -25,6 +25,7 @@ module Selene
       Line.split(@data) do |line|
         if line.begin_component?
           builder = create_builder(line.component_name)
+          builder.feed = feed
           stack[-1].add(line.component_name, builder)
           stack << builder
         elsif line.end_component?

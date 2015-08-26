@@ -8,7 +8,8 @@ module Selene
     %w(dtstamp dtstart dtend).each do |property|
       define_method "test_parses_#{property}_with_property_parameters" do
         builder = EventBuilder.new
-        builder.parse(Line.new(property.upcase, '20130110T183000', 'tzid' => 'America/New_York'))
+        builder.feed = FeedBuilder.new
+        builder.parse(Line.new(property.upcase, '20130110T183000', 1, 'tzid' => 'America/New_York'))
         assert_equal ['20130110T183000', { 'tzid' => 'America/New_York' }],
           builder.component[property]
       end
@@ -24,6 +25,7 @@ module Selene
     %w(dtstamp uid).each do |property|
       define_method "test_#{property}_required" do
         builder = EventBuilder.new
+        builder.feed = FeedBuilder.new
         builder.parent = CalendarBuilder.new
         assert_required(builder, property)
       end
@@ -33,7 +35,9 @@ module Selene
     %w(dtstamp uid dtstart class created description geo last-mod location
        organizer priority seq status summary transp url recurid).each do |property|
       define_method "test_#{property}_cannot_be_defined_more_than_once" do
-        assert_single(EventBuilder.new, property)
+        builder = EventBuilder.new
+        builder.feed = FeedBuilder.new
+        assert_single(builder, property)
       end
     end
 
@@ -45,6 +49,7 @@ module Selene
 
     def test_dtstart_required_if_no_calendar_method
       builder = EventBuilder.new
+      builder.feed = FeedBuilder.new
       builder.parent = CalendarBuilder.new
       builder.valid?
       assert_error builder, 'dtstart', "The 'dtstart' property is required if the calendar does not have a 'method' property"
@@ -52,6 +57,7 @@ module Selene
 
     def test_dtend_invalid_if_duration
       builder = EventBuilder.new
+      builder.feed = FeedBuilder.new
       builder.parse(Line.new('DURATION', {}, 'PT15M'))
       builder.parse(Line.new('DTEND', {}, '19970903T190000Z'))
       assert_error builder, 'dtend', "The 'dtend' property cannot be set if the 'duration' property already exists"
@@ -59,6 +65,7 @@ module Selene
 
     def test_duration_invalid_if_dtend
       builder = EventBuilder.new
+      builder.feed = FeedBuilder.new
       builder.parse(Line.new('DTEND', {}, '19970903T190000Z'))
       builder.parse(Line.new('DURATION', {}, 'PT15M'))
       assert_error builder, 'duration', "The 'duration' property cannot be set if the 'dtend' property already exists"
@@ -66,6 +73,7 @@ module Selene
 
     def test_exdate
       builder = EventBuilder.new
+      builder.feed = FeedBuilder.new
       builder.parse("EXDATE;VALUE=DATE-TIME;TZID=America/Detroit:19960402T010000,19960403T010000,19960404T010000")
       assert_equal builder.component['exdate'], [['19960402T010000','19960403T010000','19960404T010000'], { 'value' => 'DATE-TIME', 'tzid' => 'America/Detroit' }]
     end

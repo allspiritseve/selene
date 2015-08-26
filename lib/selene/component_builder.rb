@@ -16,7 +16,7 @@ module Selene
 
     class ParseError < StandardError; end
 
-    attr_accessor :component, :errors, :name, :parent
+    attr_accessor :component, :errors, :name, :parent, :feed
 
     def initialize(name)
       @name = name
@@ -25,14 +25,18 @@ module Selene
     end
 
     def add(name, builder)
-      @component[name] << builder.component
+      if can_contain?(builder)
+        @component[name] << builder.component
+      else
+        error(name, "can't contain #{builder.name}")
+      end
     end
 
     def parse(*properties)
       properties.each do |property|
         case property
         when Line
-          @component[name(property)] = value(property) if can_add?(property)
+          @component[property_name(property)] = value(property) if can_add?(property)
         when String
           Line.split(property).each { |line| parse(line) }
         else
@@ -69,7 +73,7 @@ module Selene
       lines.join("\n")
     end
 
-    def name(property)
+    def property_name(property)
       property.name
     end
 

@@ -44,12 +44,14 @@ module Selene
     def can_add?(property)
       if contains?(property.name) && !multiple?(property.name)
         error(property.name, "property '%s' must not occur more than once" % property.name)
+        false
+      else
+        true
       end
-      @errors.empty?
     end
 
-    def error(property_name, message)
-      @errors[property_name] << message
+    def error(property_name, message, index = nil)
+      @component['_errors'] << { property: property_name, message: message, line_number: (index + 1 if index) }
     end
 
     def valid?

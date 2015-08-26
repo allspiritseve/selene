@@ -31,7 +31,11 @@
               "tzoffsetto": "-0500",
               "tzname": "EST",
               "dtstart": "19701101T020000",
-              "rrule": "FREQ=YEARLY;BYMONTH=11;BYDAY=1SU"
+              "rrule": {
+                "freq": "YEARLY",
+                "bymonth": "11",
+                "byday": "1SU"
+              }
             }
           ]
         }

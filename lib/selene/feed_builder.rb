@@ -7,9 +7,5 @@ module Selene
     def can_contain?(builder)
       !%w(vevent vtimezone valarm standard daylight).include?(builder.name)
     end
-
-    def error(message) 
-      @component['errors'] << message
-    end
   end
 end
