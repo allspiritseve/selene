@@ -24,9 +24,9 @@ module Selene
       @errors = Hash.new { |h, k| h[k] = [] }
     end
 
-    def add(name, builder)
+    def add(line, builder)
       if can_contain?(builder)
-        @component[name] << builder.component
+        @component[line.value] << builder.component
       else
         error(name, "can't contain #{builder.name}")
       end

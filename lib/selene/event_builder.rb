@@ -45,10 +45,6 @@ module Selene
       new('vevent', component).update_properties(properties)
     end
 
-    def initialize
-      super('vevent')
-    end
-
     def update_properties(properties)
       properties.inject(self.component) do |component, (name, value)|
         component = update_property(component, name, value)
@@ -65,18 +61,11 @@ module Selene
       end
     end
 
-    def value(property)
-      case property.name
-      when 'dtstamp', 'dtstart', 'dtend'
-        property.value_with_params
-      when 'exdate'
-        property.values_with_params
-      when 'geo'
-        property.values
-      when 'rrule'
-        property.rrule
+    def value(line)
+      if line.params?
+        [line.value, line.params]
       else
-        super
+        line.value
       end
     end
 
