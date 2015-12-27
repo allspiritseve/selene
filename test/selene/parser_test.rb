@@ -18,7 +18,7 @@ module Selene
       summary = "Café au lait"
       folded = "SUMMARY:#{summary.bytes.insert(4, *"\n\s".bytes).pack('C*')}"
       parser = Parser.new(folded)
-      assert_equal summary, parser.each_line.first[:value]
+      assert_equal summary, parser.each_line.first.value
     end
 
     def test_parses_meetup_calendar

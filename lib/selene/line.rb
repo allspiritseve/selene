@@ -3,7 +3,7 @@ module Selene
     attr_reader :name, :value, :params, :context
 
     def initialize(name, value, params = {}, context = {})
-      @name = name
+      @name = name.to_sym
       @value = value
       @params = params
       @context = context

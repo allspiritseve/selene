@@ -2,6 +2,7 @@ module Selene
   class EventBuilder < ComponentBuilder
 
     # Required properties
+    property :DTSTAMP
     property 'dtstamp', required: true, multiple: false
     property 'uid', required: true, multiple: false
 

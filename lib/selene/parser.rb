@@ -60,11 +60,11 @@ module Selene
     end
 
     def begin_component?(line)
-      line[:name] == BEGIN_COMPONENT
+      line.name == :BEGIN
     end
 
     def end_component?(line)
-      line[:name] == END_COMPONENT
+      line.name == :END
     end
 
     def each_line(&block)
