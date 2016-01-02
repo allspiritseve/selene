@@ -32,17 +32,25 @@ module Selene
       end
     end
 
-    def parse(*properties)
-      properties.each do |property|
-        case property
-        when Line
-          @component[property_name(property)] = value(property) if can_add?(property)
-        when String
-          Line.split(property).each { |line| parse(line) }
-        else
-          raise ParseError, "Cannot parse argument of type #{property.class}"
-        end
+    def parse(line)
+      if can_add?(line)
+        @component[line.name] = value(line)
       end
+    end
+
+    def value(line)
+      new_value = line.value_with_params
+      return new_value unless contains?(line.name)
+      previous_value = @component[line.name]
+      if single_value?(previous_value)
+        [previous_value, new_value]
+      else
+        previous_value + [new_value]
+      end
+    end
+
+    def single_value?(value)
+      !value.is_a?(Array) || value[0].is_a?(String)
     end
 
     def to_ical(component)
@@ -71,14 +79,6 @@ module Selene
       end
 
       lines.join("\n")
-    end
-
-    def property_name(property)
-      property.name
-    end
-
-    def value(property)
-      property.value
     end
 
     def contains?(property)

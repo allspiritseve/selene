@@ -8,11 +8,12 @@ require 'selene/event_builder'
 require 'selene/feed_builder'
 require 'selene/standard_time_builder'
 require 'selene/time_zone_builder'
+require 'selene/hash_with_multiple_values'
 
 module Selene
   class Parser
-    LINE_REGEX = /(?<name>[\w-]+)(?<params>(\;[\w-]+=(?:"[^"]*"|[^\:;]+))*):(?<value>.*)/
-    PARAM_REGEX = %r/(?<key>[\w-]+)=(?<value>"[^"]*"|[^;]*)/
+    LINE_REGEX = %r/(?<name>[\w-]+)(?<params>(?:\;[\w-]+=(?:"[^"]*"\,?|[^\:\;])+)*)?:(?<value>.*)/
+    PARAM_REGEX = %r/(?<key>[\w-]+)=(?<value>(?:"[^"]*"\,?|[^;])+)/
 
     NEWLINES = ["\r\n", "\r", "\n"].map(&:freeze)
     ENCODING = 'UTF-8'.freeze
@@ -31,7 +32,7 @@ module Selene
       stack = [builder('feed')]
       each_line do |line|
         if begin_component?(line)
-          builder = builder(line[:value])
+          builder = builder(line.value)
           stack[-1].add(line, builder)
           stack << builder
         elsif end_component?(line)
@@ -40,7 +41,7 @@ module Selene
           stack[-1].parse(line)
         end
       end
-      stack[-1].component
+      pp stack[0].component
     end
 
     def builder(name)
@@ -60,11 +61,11 @@ module Selene
     end
 
     def begin_component?(line)
-      line.name == :BEGIN
+      line.name == 'BEGIN'
     end
 
     def end_component?(line)
-      line.name == :END
+      line.name == 'END'
     end
 
     def each_line(&block)
@@ -80,6 +81,7 @@ module Selene
         separator = folded[Regexp.union(NEWLINES)] || NEWLINES.first
         unfolded = folded.gsub("#{separator}\s", '').force_encoding(ENCODING)
         unfolded.each_line(separator).each_with_index do |line, index|
+          puts "Line: #{line}"
           yielder << parse_line(line.chomp(separator), index)
         end
       end
@@ -90,13 +92,12 @@ module Selene
         name = match[:name].upcase
         params = parse_params(match[:params])
         value = match[:value]
-        context = { line: index + 1 }
-        Line.new(name, value, params, context)
+        Line.new(name, value, params, line: index + 1)
       end
     end
 
     def parse_params(params)
-      params.scan(PARAM_REGEX).inject({}) do |memo, (key, value)|
+      params.to_s.scan(PARAM_REGEX).inject({}) do |memo, (key, value)|
         memo.merge(key => value)
       end
     end

@@ -62,14 +62,6 @@ module Selene
       end
     end
 
-    def value(line)
-      if line.params?
-        [line.value, line.params]
-      else
-        line.value
-      end
-    end
-
     def parent=(builder)
       raise Exception.new("Event components cannot be nested inside anything but a calendar component") unless builder.is_a?(CalendarBuilder)
       super(builder)

@@ -5,12 +5,12 @@ module Selene
     include BuilderTestHelper
 
     def builder
-      @builder ||= StandardTimeBuilder.new
+      @builder ||= StandardTimeBuilder.new('STANDARD')
     end
 
     def test_parses_rrule
       builder.parse(Line.new('RRULE', 'FREQ=YEARLY;BYMONTH=3;BYDAY=2SU'))
-      assert_equal({ 'freq' => 'YEARLY', 'bymonth' => '3', 'byday' => '2SU' }, builder.component['rrule'])
+      assert_equal "FREQ=YEARLY;BYMONTH=3;BYDAY=2SU", builder.component['RRULE']
     end
   end
 end
