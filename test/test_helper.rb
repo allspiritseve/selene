@@ -49,7 +49,7 @@ module Selene
 
     def assert_error builder, property, message
       builder.valid?
-      assert builder.component['_errors'].any? { |e| e[:message] =~ /#{message}/ }, "#{builder.class.name}: #{message}"
+      assert builder.component['_errors'].any? { |e| e[:message] =~ /#{message}/ }, "#{builder.class.name} errors do not contain #{message.inspect}"
     end
   end
 end
