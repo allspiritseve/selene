@@ -16,7 +16,11 @@ module Selene
     end
 
     def initialize(data)
-      @data = data
+      @data = encode(data)
+    end
+
+    def encode(data)
+      data.encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
     end
 
     def parse
